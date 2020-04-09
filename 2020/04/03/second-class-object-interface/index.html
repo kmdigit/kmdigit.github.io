@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/04/03/second-class-object-interface/">
+<title>Kotlin :: 클래스, 객체, 인터페이스 2 - Fun Programm Life</title>
+
+
+    <meta name="description" content="클래스, 객체, 인터페이스 1에 이어 클래스, 객체, 인터페이스2 를 시작한다. 클래스 선언코틀린에서는 생성자를 주 생성자(primary constructor)와 부 생성자(secondary constructor)로 나눈다. 주 생성자는 단 한번만 선언할 수 있으며 부 생성자를 여럿 선언할 수도 있다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin :: 클래스, 객체, 인터페이스 2">
+<meta property="og:url" content="https://kmdigit.github.io/2020/04/03/second-class-object-interface/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="클래스, 객체, 인터페이스 1에 이어 클래스, 객체, 인터페이스2 를 시작한다. 클래스 선언코틀린에서는 생성자를 주 생성자(primary constructor)와 부 생성자(secondary constructor)로 나눈다. 주 생성자는 단 한번만 선언할 수 있으며 부 생성자를 여럿 선언할 수도 있다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-04-02T23:58:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:13:55.301Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="코틀린">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Kotlin :: 클래스, 객체, 인터페이스 2" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7분 읽기 (대략 1031 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Kotlin :: 클래스, 객체, 인터페이스 2
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://kmdigit.github.io/2020/03/30/first-class-object-interface/">클래스, 객체, 인터페이스 1</a>에 이어 클래스, 객체, 인터페이스2 를 시작한다.</p>
+<h2 id="클래스-선언"><a href="#클래스-선언" class="headerlink" title="클래스 선언"></a>클래스 선언</h2><p>코틀린에서는 생성자를 <code>주 생성자(primary constructor)</code>와 <code>부 생성자(secondary constructor)</code>로 나눈다. 주 생성자는 단 한번만 선언할 수 있으며 부 생성자를 여럿 선언할 수도 있다.</p>
+<a id="more"></a>
+
+<h3 id="클래스-초기화-주-생성자와-초기화-블럭"><a href="#클래스-초기화-주-생성자와-초기화-블럭" class="headerlink" title="클래스 초기화: 주 생성자와 초기화 블럭"></a>클래스 초기화: 주 생성자와 초기화 블럭</h3><p>코틀린에서 제공하는 주 생성자는 클래서 선언과 동시에 이뤄진다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> nickname: String)</span><br></pre></td></tr></table></figure>
+<p>보통 클래스의 모든 선언은 중괄호({}) 사이에 들어가지만 코틀린의 주 생성자는 클래스 이름 뒤에 괄호로 선언한다. 주 생성자는 <code>생성자 파라미터를 지정</code>하고 그 생성자 파라미터에 의해 <code>초기화되는 프로퍼티를 정의</code>하는 두 가지 목적에 쓰인다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">constructor</span></span>(_nickname: String) &#123;</span><br><span class="line">  <span class="keyword">val</span> nickname: String</span><br><span class="line">  <span class="keyword">init</span> &#123;</span><br><span class="line">    nickname = _nickname</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// constructor, init 생략 가능</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(_nickname: String) &#123;</span><br><span class="line">  <span class="keyword">val</span> nickname = _nickname</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>constrcutor 키워드</code>는 주 생성자나 부 생성자를 정의할 때 사용한다.</li>
+<li><code>init 키워드</code>는 초기화 블록을 시작한다.</li>
+</ul>
+<p>생성자에는 <code>디폴트 파라미터를 설정</code>할 수 있으며 객체 생성시 이름도 지정 가능하다. 또한 모든 생성자 파라미터에 디폴트 값을 지정하면 컴파일러가 자동으로 <code>파라미터가 없는 생성자</code>를 만들어 주기도 한다.</p>
+<p>클래스를 상속할 땐 꼭 부모 클래스의 주 생성자를 호출해야 한다. 아래와 같이 말이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> nickname: String) &#123; ... &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwitterUser</span></span>(nickname: String): User(nickname) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 클래스를 상속하게 되면 주 생성자를 호출해야 하므로 상속받는 <code>클래스명 뒤에 괄호</code>를 사용해야 한다. 하지만 인터페이스는 생성자가 없으므로(실제로는 클래스가 private) 인터페이스를 상속받을 땐 <code>괄호를 사용하지 않고 선언</code>할 수 있다. 그러므로 어떤 클래스가 2개의 클래스를 상속받는 데 하나는 괄호가 있고 하나는 괄호가 없다면 <code>괄호 있는 이름이 클래스</code>이며 <code>괄호 없는 이름이 인터페이스</code>로 구분이 쉽게 가능하다.</p>
+<h2 id="인터페이스-프로퍼티-구현"><a href="#인터페이스-프로퍼티-구현" class="headerlink" title="인터페이스 프로퍼티 구현"></a>인터페이스 프로퍼티 구현</h2><p>코틀린에서는 인터페이스에 추상 프로퍼티 선언을 넣을 수 있다. 또한 프로퍼티의 구현도 가능하여 아래와 같이 작성할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> nickname: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrivateUser</span></span>(<span class="keyword">override</span> <span class="keyword">val</span> nickname: String) : User</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubscribingUser</span></span>(<span class="keyword">val</span> email: String) : User(</span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">val</span> nickname: String</span><br><span class="line">    <span class="keyword">get</span>() = email.substringBefore(<span class="string">'@'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FacebookUser</span></span>(<span class="keyword">val</span> accountId: <span class="built_in">Int</span>): User &#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">val</span> nickname = getFacebookName(accoundId)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PrivateUser은 주 생성자 안에 프로퍼티를 직접 선언하는 방법을 선택하였다.</li>
+<li>SubscribingUser는 nickname을 호출할 때마다 주 생성자에서 입력받은 email을 계산하여 반환한다.</li>
+<li>FacebookUser는 초기화 구문으로 nickname에 getFacebookName 함수로 이름을 초기화 한다.</li>
+</ul>
+<h2 id="게터와-세터에서-뒷받침하는-필드에-접근"><a href="#게터와-세터에서-뒷받침하는-필드에-접근" class="headerlink" title="게터와 세터에서 뒷받침하는 필드에 접근"></a>게터와 세터에서 뒷받침하는 필드에 접근</h2><p>데이터 값이 변경 됨에 따라 어떤 값으로 변경했는지 알고 싶을 때 기존 값과 새로운 값의 로그를 작성하는데 이 로직을 세터에서 할 수 있도록 작성이 가능하다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> name: String) &#123;</span><br><span class="line">  <span class="keyword">var</span> address: String = <span class="string">"unspecified"</span></span><br><span class="line">    <span class="keyword">set</span>(value: String) &#123;</span><br><span class="line">      println(<span class="string">"""</span></span><br><span class="line"><span class="string">					Address was changed for <span class="variable">$name</span>:</span></span><br><span class="line"><span class="string">					"<span class="variable">$field</span>" -&gt; "<span class="variable">$value</span>"."""</span>.trimIndent())</span><br><span class="line">      field = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>프로퍼티에서 원래의 값을 접근할 땐 <code>field</code>식별자를 사용하여 접근이 가능하다.</p>
+<h2 id="접근자의-가시성-변경"><a href="#접근자의-가시성-변경" class="headerlink" title="접근자의 가시성 변경"></a>접근자의 가시성 변경</h2><p>접근자의 가시성은 기본적으로 프로퍼티 가시성과 같으며 <code>private</code>으로 작성 시 외부에서는 해당 접근자에 접근을 못하지만 내부에서는 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LengthCounter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> counter: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">set</span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">addWord</span><span class="params">(word: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    counter += word.length</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>, <a class="has-link-grey -link" href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" rel="tag">코틀린</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/04/06/algorithm-maximum-subarray/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Algorithm :: Maximum Subarray</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/04/01/useful-regex-sample/">
+                <span class="level-item">Regex :: 유용한 정규표현식 샘플 with Java</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/04/03/second-class-object-interface/';
+        this.page.identifier = '2020/04/03/second-class-object-interface/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#클래스-선언">
+        <span class="has-mr-6">1</span>
+        <span>클래스 선언</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#클래스-초기화-주-생성자와-초기화-블럭">
+        <span class="has-mr-6">1.1</span>
+        <span>클래스 초기화: 주 생성자와 초기화 블럭</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#인터페이스-프로퍼티-구현">
+        <span class="has-mr-6">2</span>
+        <span>인터페이스 프로퍼티 구현</span>
+        </a></li><li>
+        <a class="is-flex" href="#게터와-세터에서-뒷받침하는-필드에-접근">
+        <span class="has-mr-6">3</span>
+        <span>게터와 세터에서 뒷받침하는 필드에 접근</span>
+        </a></li><li>
+        <a class="is-flex" href="#접근자의-가시성-변경">
+        <span class="has-mr-6">4</span>
+        <span>접근자의 가시성 변경</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Kotlin :: 클래스, 객체, 인터페이스 2" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

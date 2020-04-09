@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/03/20/using-influxdb-spring/">
+<title>[Spring] 스프링부트에서 InfluxDB 사용하기 - Fun Programm Life</title>
+
+
+    <meta name="description" content="InfluxDBNoSQL중에 오픈소스 시계열 데이터베이스로 Go언어로 개발이 됐다. 시계열 데이터의 저장 및 검색 기능에 최적화 돼있다. 스프링에서는?InfluxDB 자체에서 따로 API를 제공하지만 일일이 다 찾아 사용하기 어려우므로 현재 제대로 제공하고 있는 오픈 라이브러리를 적용하면 사용하기 쉽다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Spring] 스프링부트에서 InfluxDB 사용하기">
+<meta property="og:url" content="https://kmdigit.github.io/2020/03/20/using-influxdb-spring/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="InfluxDBNoSQL중에 오픈소스 시계열 데이터베이스로 Go언어로 개발이 됐다. 시계열 데이터의 저장 및 검색 기능에 최적화 돼있다. 스프링에서는?InfluxDB 자체에서 따로 API를 제공하지만 일일이 다 찾아 사용하기 어려우므로 현재 제대로 제공하고 있는 오픈 라이브러리를 적용하면 사용하기 쉽다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-03-20T07:12:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:14:55.766Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="influxdb">
+<meta property="article:tag" content="influxdb-java">
+<meta property="article:tag" content="spring-data-influxdb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="[Spring] 스프링부트에서 InfluxDB 사용하기" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-20T07:12:00.000Z">2020-03-20</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/spring/boot/">boot</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4분 읽기 (대략 613 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [Spring] 스프링부트에서 InfluxDB 사용하기
+            
+        </h1>
+        <div class="content">
+            <h1 id="InfluxDB"><a href="#InfluxDB" class="headerlink" title="InfluxDB"></a>InfluxDB</h1><p>NoSQL중에 오픈소스 시계열 데이터베이스로 Go언어로 개발이 됐다. 시계열 데이터의 저장 및 검색 기능에 최적화 돼있다.</p>
+<h1 id="스프링에서는"><a href="#스프링에서는" class="headerlink" title="스프링에서는?"></a>스프링에서는?</h1><p>InfluxDB 자체에서 따로 API를 제공하지만 일일이 다 찾아 사용하기 어려우므로 현재 제대로 제공하고 있는 오픈 라이브러리를 적용하면 사용하기 쉽다.</p>
+<a id="more"></a>
+
+<h2 id="influxdb-java-or-influxdb-client-java"><a href="#influxdb-java-or-influxdb-client-java" class="headerlink" title="influxdb-java(or influxdb-client-java)"></a>influxdb-java(or influxdb-client-java)</h2><p><a href="https://github.com/influxdata/influxdb-java" rel="external nofollow noopener noreferrer" target="_blank">influxdb-java</a>는 <code>influxdb 1.x</code>일 때 사용가능하며 <a href="https://github.com/influxdata/influxdb-client-java" rel="external nofollow noopener noreferrer" target="_blank">influxdb-client-java</a>는 <code>2.x</code>부터 사용가능하다.<br>influxdata에서 공식적으로 제공하는 라이브러리로 <code>Connector, POJO</code>등 다양한 기능들을 제공한다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'org.influxdb:influxdb-java:2.17'</span></span><br><span class="line">implementation <span class="string">'org.influxdb:influxdb-client-java:1.6.0'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="spring-data-influxdb"><a href="#spring-data-influxdb" class="headerlink" title="spring-data-influxdb"></a>spring-data-influxdb</h2><p>스프링에서 쉽게 사용할 수 있도록 만들어진 라이브러리. (<a href="https://github.com/miwurster/spring-data-influxdb" rel="external nofollow noopener noreferrer" target="_blank">github</a>)<br>개인이 만들었으며 <code>application.yml</code>에 influxdb관련 설정을 할 수 있도록 도와준다.<br><code>spring-data-influxdb</code>는 기본적으로 <code>influxdb-java</code>를 내포하고 있으므로 그냥 사용해도 되나 버전업이 조금 늦으므로 최신 버전을 사용하려면 따로 추가해줘야 한다.</p>
+<h2 id="사용법"><a href="#사용법" class="headerlink" title="사용법"></a>사용법</h2><h3 id="라이브러리-추가"><a href="#라이브러리-추가" class="headerlink" title="라이브러리 추가"></a>라이브러리 추가</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// application.yml</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'com.fasterxml.jackson.core:jackson-databind:2.10.2'</span></span><br><span class="line">    implementation <span class="string">'com.github.miwurster:spring-data-influxdb:1.8'</span></span><br><span class="line">    implementation <span class="string">'org.influxdb:influxdb-java:2.17'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="influxdb-설정"><a href="#influxdb-설정" class="headerlink" title="influxdb 설정"></a>influxdb 설정</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  influxdb:</span><br><span class="line">    url: http:&#x2F;&#x2F;localhost:8086</span><br><span class="line">    username: user</span><br><span class="line">    password: ~</span><br><span class="line">    database: test</span><br><span class="line">    retention-policy: autogen</span><br></pre></td></tr></table></figure>
+<h3 id="spring-data-influxdb-설정"><a href="#spring-data-influxdb-설정" class="headerlink" title="spring-data-influxdb 설정"></a>spring-data-influxdb 설정</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(InfluxDBProperties<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">InfluxDBConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> InfluxDBConnectionFactory <span class="title">connectionFactory</span><span class="params">(@Qualifier(<span class="string">"spring.influxdb-org.springframework.data.influxdb.InfluxDBProperties"</span>)</span> <span class="keyword">final</span> InfluxDBProperties properties) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InfluxDBConnectionFactory(properties);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> InfluxDBTemplate&lt;Point&gt; <span class="title">influxDBTemplate</span><span class="params">(<span class="keyword">final</span> InfluxDBConnectionFactory connectionFactory)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * You can use your own 'PointCollectionConverter' implementation, e.g. in case</span></span><br><span class="line"><span class="comment">         * you want to use your own custom measurement object.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InfluxDBTemplate&lt;&gt;(connectionFactory, <span class="keyword">new</span> PointConverter());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultInfluxDBTemplate <span class="title">defaultTemplate</span><span class="params">(<span class="keyword">final</span> InfluxDBConnectionFactory connectionFactory)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * If you are just dealing with Point objects from 'influxdb-java' you could</span></span><br><span class="line"><span class="comment">         * also use an instance of class DefaultInfluxDBTemplate.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultInfluxDBTemplate(connectionFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="InfluxDBTemplate-사용"><a href="#InfluxDBTemplate-사용" class="headerlink" title="InfluxDBTemplate 사용"></a>InfluxDBTemplate 사용</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InfluxServiceImpl</span> <span class="keyword">implements</span> <span class="title">InfluxService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> InfluxDBTemplate&lt;Point&gt; influxDBTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InfluxServiceImpl</span><span class="params">(InfluxDBTemplate&lt;Point&gt; influxDBTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.influxDBTemplate = influxDBTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        influxDBTemplate.createDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(CPU cpu)</span> </span>&#123;</span><br><span class="line">        influxDBTemplate.write(Point.measurementByPOJO(CPU<span class="class">.<span class="keyword">class</span>).<span class="title">addFieldsFromPOJO</span>(<span class="title">cpu</span>).<span class="title">build</span>())</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>influxdb-java</code>가 <code>POJO</code>를 지원하므로 필요한 데이터를 클래스로 구현하여 사용하면 편리하다.</p>
+<h3 id="Measurement-구현"><a href="#Measurement-구현" class="headerlink" title="Measurement 구현"></a>Measurement 구현</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Measurement</span>(name = <span class="string">"cpu"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line">    <span class="meta">@TimeColumn</span></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"tiem"</span>)</span><br><span class="line">    <span class="keyword">private</span> Instant time;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"version"</span>)</span><br><span class="line">    <span class="keyword">private</span> String version;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"use"</span>)</span><br><span class="line">    <span class="keyword">private</span> String use;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"idle"</span>)</span><br><span class="line">    <span class="keyword">private</span> String idle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>influxdb</code>는 시계열 데이터베이스이므로 시간이 중요한 포인트이므로 <code>@TimeColumn, Instant</code>로 시간을 제공할 수 있다.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/influxdb/" rel="tag">influxdb</a>, <a class="has-link-grey -link" href="/tags/influxdb-java/" rel="tag">influxdb-java</a>, <a class="has-link-grey -link" href="/tags/spring/" rel="tag">spring</a>, <a class="has-link-grey -link" href="/tags/spring-data-influxdb/" rel="tag">spring-data-influxdb</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/21/custom-influxdb-configuration-on-spring/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">[Spring] InfluxDB 커스텀으로 다른 DB 사용하기</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/19/assign-user-on-websocket-springboot/">
+                <span class="level-item">[Spring] 웹소켓에서 가상의 유저(Principal) 생성하기(no Security)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/03/20/using-influxdb-spring/';
+        this.page.identifier = '2020/03/20/using-influxdb-spring/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#InfluxDB">
+        <span class="has-mr-6">1</span>
+        <span>InfluxDB</span>
+        </a></li><li>
+        <a class="is-flex" href="#스프링에서는">
+        <span class="has-mr-6">2</span>
+        <span>스프링에서는?</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#influxdb-java-or-influxdb-client-java">
+        <span class="has-mr-6">2.1</span>
+        <span>influxdb-java(or influxdb-client-java)</span>
+        </a></li><li>
+        <a class="is-flex" href="#spring-data-influxdb">
+        <span class="has-mr-6">2.2</span>
+        <span>spring-data-influxdb</span>
+        </a></li><li>
+        <a class="is-flex" href="#사용법">
+        <span class="has-mr-6">2.3</span>
+        <span>사용법</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#라이브러리-추가">
+        <span class="has-mr-6">2.3.1</span>
+        <span>라이브러리 추가</span>
+        </a></li><li>
+        <a class="is-flex" href="#influxdb-설정">
+        <span class="has-mr-6">2.3.2</span>
+        <span>influxdb 설정</span>
+        </a></li><li>
+        <a class="is-flex" href="#spring-data-influxdb-설정">
+        <span class="has-mr-6">2.3.3</span>
+        <span>spring-data-influxdb 설정</span>
+        </a></li><li>
+        <a class="is-flex" href="#InfluxDBTemplate-사용">
+        <span class="has-mr-6">2.3.4</span>
+        <span>InfluxDBTemplate 사용</span>
+        </a></li><li>
+        <a class="is-flex" href="#Measurement-구현">
+        <span class="has-mr-6">2.3.5</span>
+        <span>Measurement 구현</span>
+        </a></li></ul></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="[Spring] 스프링부트에서 InfluxDB 사용하기" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

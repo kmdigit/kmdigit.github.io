@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/03/29/second-funtion-definition-and-call/">
+<title>함수 정의와 호출 2 - Fun Programm Life</title>
+
+
+    <meta name="description" content="함수 정의와 호출 1에 이어 함수 정의와 호출 2를 시작한다.  확장 프로퍼티확장 프로퍼티를 사용하면 기존 클래스 객체에 대한 프로퍼티 형식의 구문으로 사용할 수 있는 API를 추가할 수 있다. 확장 프로퍼티로 작성하면 아무 상태도 가질 수 없지만 (확장 함수와 같다) 코드를 더 짧게 작성할 수 있어서 편한 경우가 있다. 12val String.lastCh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수 정의와 호출 2">
+<meta property="og:url" content="https://kmdigit.github.io/2020/03/29/second-funtion-definition-and-call/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="함수 정의와 호출 1에 이어 함수 정의와 호출 2를 시작한다.  확장 프로퍼티확장 프로퍼티를 사용하면 기존 클래스 객체에 대한 프로퍼티 형식의 구문으로 사용할 수 있는 API를 추가할 수 있다. 확장 프로퍼티로 작성하면 아무 상태도 가질 수 없지만 (확장 함수와 같다) 코드를 더 짧게 작성할 수 있어서 편한 경우가 있다. 12val String.lastCh">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-03-29T06:02:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:14:00.445Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="함수 정의와 호출 2" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-29T06:02:00.000Z">2020-03-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7분 읽기 (대략 1070 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                함수 정의와 호출 2
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://kmdigit.github.io/2020/03/28/first-funtion-definition-and-call/">함수 정의와 호출 1</a>에 이어 함수 정의와 호출 2를 시작한다.</p>
+<hr>
+<h2 id="확장-프로퍼티"><a href="#확장-프로퍼티" class="headerlink" title="확장 프로퍼티"></a>확장 프로퍼티</h2><p>확장 프로퍼티를 사용하면 기존 클래스 객체에 대한 프로퍼티 형식의 구문으로 사용할 수 있는 API를 추가할 수 있다. 확장 프로퍼티로 작성하면 아무 상태도 가질 수 없지만 (확장 함수와 같다) 코드를 더 짧게 작성할 수 있어서 편한 경우가 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> String.lastChar: <span class="built_in">Char</span></span><br><span class="line">  <span class="keyword">get</span>() = <span class="keyword">get</span>(length - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h2 id="가변-인자"><a href="#가변-인자" class="headerlink" title="가변 인자"></a>가변 인자</h2><p>코틀린과 자바에서의 가변 인자의 차이점은 두 가지이며 나머지는 모두 동일하다.</p>
+<ul>
+<li>자바에서는 …를 사용하지만 코틀린에서는 <code>vararg</code>를 파라미터 앞에 붙인다.</li>
+<li>자바에서는 배열을 그대로 파라미터로 넘겼지만 코틀린에서는 스프레드(*)로 풀어서 넘겨야 한다.  <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Arrays</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">  <span class="keyword">val</span> list = listOf(<span class="string">"args: "</span>, *args)</span><br><span class="line">  println(list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="중위-호출"><a href="#중위-호출" class="headerlink" title="중위 호출"></a>중위 호출</h2><p>중위 호출은 수신 객체의 인자가 하나뿐인 일반 메소드나 하나뿐인 확장 함수에 중위 호출을 사용할 수 있다. 호출 시에는 수신 객체와 유일한 메소드 인자 사이에 메소드 이름을 넣는다. 이때 객체, 메소드 이름, 유일한 인자 사이에는 <code>공백</code>이 들어가야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.to(<span class="string">"one"</span>) <span class="comment">// &lt;- "to" 메소드를 일반적인 방식으로 호출함</span></span><br><span class="line"><span class="number">1</span> to <span class="string">"one"</span> <span class="comment">// &lt;- "to" 메소드를 중위 호출 방식으로 호출함</span></span><br></pre></td></tr></table></figure>
+<h2 id="구조-분해-선언"><a href="#구조-분해-선언" class="headerlink" title="구조 분해 선언"></a>구조 분해 선언</h2><p>구조 분해 선언은 <code>Pair</code>와 같은 순서쌍을 표현하는 클래스에 대해 분해 후 즉시 초기화를 할 수 있는 기능을 얘기한다. 위에서 예를 들었던 <code>1 to &quot;one&quot;</code>은 그 결과가 <code>Pair</code>이다. 이 결과로 변수를 즉시 초기화 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> (number, name) = <span class="number">1</span> to <span class="string">"one"</span></span><br></pre></td></tr></table></figure>
+<h2 id="문자열과-정규식"><a href="#문자열과-정규식" class="headerlink" title="문자열과 정규식"></a>문자열과 정규식</h2><p>코틀린에서는 문자열의 split함수를 조금 더 다루기 쉽고 명확하게 할 수 있도록 노력했다. 코틀린 문자열의 split함수는 일반 문자열과 정규화 두 개를 모두 전달 받을 수 있는데 정규화의 경우 Regex 타입의 값만 받을 수 있도록 하였는데 <code>&quot;\\!|-&quot;.toRegex()</code>와 같은 방식으로 Regex 타입을 만든다.</p>
+<p>정규화 문법을 작성 시 이스케이프 문자로 <code>\</code>을 넣는데 <code>&quot;&quot;&quot; ... &quot;&quot;&quot;</code>와 같이 <code>3중 따옴표</code>로 문자열을 묶을 경우 이스케이프 문자가 필요 없어 다음과 같이 정규화 문법을 작성할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">ParsePath</span><span class="params">(path: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">  <span class="keyword">val</span> regex = <span class="string">"""(.+)/(.+)\.(.+)"""</span>.toRegex()</span><br><span class="line">  <span class="keyword">val</span> matchResult = regex.matchEntire(path)</span><br><span class="line">  <span class="keyword">if</span> (matchResult != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">val</span> (directory, filename, extension) = matchResult.destructed</span><br><span class="line">    println(<span class="string">"Dir: <span class="variable">$directory</span>, name: <span class="variable">$filename</span>, ext: <span class="variable">$extension</span>"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="로컬-함수와-확장"><a href="#로컬-함수와-확장" class="headerlink" title="로컬 함수와 확장"></a>로컬 함수와 확장</h2><p>코틀린에서는 함수에서 추출한 함수를 원 함수 내부에 중첩시킬 수 있다. 그렇게 하면 문법적인 부가 비용을 들이지 않고도 깔끔하게 코드를 조직할 수 있다. 자바에서는 함수 안에서 함수를 다시 정의하지 못하므로 클래스 내부에 같은 레벨의 함수로 정의하거나 별도의 내부 클래스로 함수를 넣어 사용하기도 하지만 코틀린은 함수 안에서 또 다른 함수를 선언할 수 있다. 아래는 그 예다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> id: <span class="built_in">Int</span>, <span class="keyword">val</span> name: String, <span class="keyword">val</span> address: String)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 일반적인 코드</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (user.name.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Can't save user <span class="subst">$&#123;user.id&#125;</span>: empty Name"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (user.address.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Can't save user <span class="subst">$&#123;user.id&#125;</span>: empty Address"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// user 저장</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 로컬 함수 사용</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(user: <span class="type">User</span>, value: <span class="type">String</span>, field: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Can't save user <span class="subst">$&#123;user.id&#125;</span>: empty <span class="variable">$field</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  validate(user, user.name, <span class="string">"Name"</span>)</span><br><span class="line">  validate(user, user.address, <span class="string">"Address"</span>)</span><br><span class="line">  <span class="comment">// user 저장</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 바깥 함수 파라미터 접근</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(value: <span class="type">String</span>, field: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Can't save user <span class="subst">$&#123;user.id&#125;</span>: empty <span class="variable">$field</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  validate(user.name, <span class="string">"Name"</span>)</span><br><span class="line">  validate(user.address, <span class="string">"Address"</span>)</span><br><span class="line">  <span class="comment">// user 저장</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 확장 함수로 변경</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Uuser.<span class="title">validateBeforeSave</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(value: <span class="type">String</span>, field: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Can't save user <span class="subst">$&#123;id&#125;</span>: empty <span class="variable">$field</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  validate(name, <span class="string">"Name"</span>)</span><br><span class="line">  validate(address, <span class="string">"Address"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">  user.validateBeforeSave()</span><br><span class="line">  <span class="comment">// user 저장</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/30/first-class-object-interface/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">[Kotlin] 클래스, 객체, 인터페이스 1</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/28/first-funtion-definition-and-call/">
+                <span class="level-item">함수 정의와 호출 1</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/03/29/second-funtion-definition-and-call/';
+        this.page.identifier = '2020/03/29/second-funtion-definition-and-call/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#확장-프로퍼티">
+        <span class="has-mr-6">1</span>
+        <span>확장 프로퍼티</span>
+        </a></li><li>
+        <a class="is-flex" href="#가변-인자">
+        <span class="has-mr-6">2</span>
+        <span>가변 인자</span>
+        </a></li><li>
+        <a class="is-flex" href="#중위-호출">
+        <span class="has-mr-6">3</span>
+        <span>중위 호출</span>
+        </a></li><li>
+        <a class="is-flex" href="#구조-분해-선언">
+        <span class="has-mr-6">4</span>
+        <span>구조 분해 선언</span>
+        </a></li><li>
+        <a class="is-flex" href="#문자열과-정규식">
+        <span class="has-mr-6">5</span>
+        <span>문자열과 정규식</span>
+        </a></li><li>
+        <a class="is-flex" href="#로컬-함수와-확장">
+        <span class="has-mr-6">6</span>
+        <span>로컬 함수와 확장</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="함수 정의와 호출 2" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

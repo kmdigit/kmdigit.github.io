@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/03/26/second-basic-kotlin/">
+<title>[Kotlin] 코틀린의 기초 2 - Fun Programm Life</title>
+
+
+    <meta name="description" content="코틀린의 기초 1에 이어 코틀린의 기초 2를 시작한다.  선택 표현과 처리: enum과 whenenum 클래스 정의코틀린에서 enum은 소프트 키워드라 부르는 존재이다. enum은 class앞에 있을 때는 특별한 의미를 지니지만 다른 곳에서는 이름에 사용할 수 있다. 반면 class는 키워드이므로 이름으로 사용할 수 없다. 자바와 마찬가지로 enum은 단순">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 코틀린의 기초 2">
+<meta property="og:url" content="https://kmdigit.github.io/2020/03/26/second-basic-kotlin/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="코틀린의 기초 1에 이어 코틀린의 기초 2를 시작한다.  선택 표현과 처리: enum과 whenenum 클래스 정의코틀린에서 enum은 소프트 키워드라 부르는 존재이다. enum은 class앞에 있을 때는 특별한 의미를 지니지만 다른 곳에서는 이름에 사용할 수 있다. 반면 class는 키워드이므로 이름으로 사용할 수 없다. 자바와 마찬가지로 enum은 단순">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-03-26T11:59:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:13:50.533Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="[Kotlin] 코틀린의 기초 2" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="[Kotlin] 코틀린의 기초 2">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-26T11:59:00.000Z">2020-03-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11분 읽기 (대략 1585 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [Kotlin] 코틀린의 기초 2
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://kmdigit.github.io/2020/03/25/first-basic-kotlin/">코틀린의 기초 1</a>에 이어 코틀린의 기초 2를 시작한다.</p>
+<hr>
+<h2 id="선택-표현과-처리-enum과-when"><a href="#선택-표현과-처리-enum과-when" class="headerlink" title="선택 표현과 처리: enum과 when"></a>선택 표현과 처리: enum과 when</h2><h3 id="enum-클래스-정의"><a href="#enum-클래스-정의" class="headerlink" title="enum 클래스 정의"></a>enum 클래스 정의</h3><p>코틀린에서 enum은 소프트 키워드라 부르는 존재이다. enum은 class앞에 있을 때는 특별한 의미를 지니지만 다른 곳에서는 이름에 사용할 수 있다. 반면 class는 키워드이므로 이름으로 사용할 수 없다.</p>
+<p>자바와 마찬가지로 enum은 단순히 값만 열거하는 존재가 아니다. enum 클래스 안에도 프로퍼티나 메소드를 정의할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>(</span><br><span class="line">  <span class="keyword">val</span> r: <span class="built_in">Int</span>, <span class="keyword">val</span> g: <span class="built_in">Int</span>, <span class="keyword">val</span> b: <span class="built_in">Int</span></span><br><span class="line">) &#123;</span><br><span class="line">  RED(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), ORANGE(<span class="number">255</span>, <span class="number">165</span>, <span class="number">0</span>),</span><br><span class="line">  YELLOW(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), GREEN(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), BLUE(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">  INDIGO(<span class="number">75</span>, <span class="number">0</span>, <span class="number">130</span>), VILOET(<span class="number">238</span>, <span class="number">130</span>, <span class="number">238</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">rgb</span><span class="params">()</span></span> = (r * <span class="number">256</span> + g) * <span class="number">256</span> + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(Color.BLUE.rgb())</span><br><span class="line"><span class="number">255</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="when"><a href="#when" class="headerlink" title="when"></a>when</h3><p>자바의 switch에 해당하는 코틀린 구성 요소는 <code>when</code>이다. if와 마찬가지로 when도 값을 만들어내는 식이므로 따라서 식이 본문인 함수에 when을 바로 사용할 수 있다. 아래 예는 when과 enum을 사용하여 빨주노초파남보를 외우는 식이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getMnemonic</span><span class="params">(color: <span class="type">Color</span>)</span></span> = </span><br><span class="line">  <span class="keyword">when</span>(color) &#123;</span><br><span class="line">    Color.RED -&gt; <span class="string">"Richard"</span></span><br><span class="line">    Color.ORANGE -&gt; <span class="string">"Of"</span></span><br><span class="line">    Color.YELLOW -&gt; <span class="string">"York"</span></span><br><span class="line">    Color.GREEN -&gt; <span class="string">"Gave"</span></span><br><span class="line">    Color.BLUE -&gt; <span class="string">"Battle"</span></span><br><span class="line">    Color.INDIGO -&gt; <span class="string">"In"</span></span><br><span class="line">    Color.VIOLET -&gt; <span class="string">"Vain"</span></span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="string">"Other"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>자바와 다른 점은 <code>break</code> 를 넣지 않아도 되며 결과를 바로 리턴할 수 있는 식의 형태이다. 만약 여러개를 매치하기 위해서는 <code>,</code>를 사용하여 분리한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">GetMnemoic</span><span class="params">(color: <span class="type">Color</span>)</span></span> =</span><br><span class="line">  <span class="keyword">when</span>(color) &#123;</span><br><span class="line">    Color.RED, Color.YELLOW -&gt; <span class="string">"blah"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>코트린의 when은 임의의 개체를 사용하여 분기 처리도 가능하다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">mix</span><span class="params">(c1: <span class="type">Color</span>, c2: <span class="type">Color</span>)</span></span> =</span><br><span class="line">  <span class="keyword">when</span>(setOf(c1, c2)) &#123;</span><br><span class="line">    setOf(RED, YELLOW) -&gt; ORANGE</span><br><span class="line">    setOf(YELLOW, BLUE) -&gt; GREEN</span><br><span class="line">    setOf(BLUE, VIOLET) -&gt; INDIGO</span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="keyword">throw</span> Exception(<span class="string">"Dirty Color"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(mix(BLUE, YELLOW))</span><br><span class="line">GREEN</span><br></pre></td></tr></table></figure>
+<p>또한 아예 인자가 없이도 사용이 가능하다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">mixOptimized</span><span class="params">(c1: <span class="type">Color</span>, c2: <span class="type">Color</span>)</span></span> =</span><br><span class="line">  <span class="keyword">when</span> &#123;</span><br><span class="line">    (c1 == RED &amp;&amp; c2 == YELLOW) ||</span><br><span class="line">    (c1 == YELLOW &amp;&amp; c2 == RED) -&gt;</span><br><span class="line">      ORANGE</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>when에 아무 인자도 없으려면 각 분기의 조건이 <code>Boolean 결과</code>를 계산하는 식이어야 한다.</p>
+<h2 id="스마트-캐스트-타입-검사와-타입-캐스트를-조합"><a href="#스마트-캐스트-타입-검사와-타입-캐스트를-조합" class="headerlink" title="스마트 캐스트: 타입 검사와 타입 캐스트를 조합"></a>스마트 캐스트: 타입 검사와 타입 캐스트를 조합</h2><p>코틀린에서는 자바와는 다르게 타입 검사와 타입 캐스트가 동시에 이뤄진다. 자바의 경우 instanceof로 타입 검사 이후 캐스팅하여 사용을 해야하지만 코틀린에서는 검사와 동시에 캐스팅이 되어 그대로 변수를 사용이 가능하다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="keyword">if</span> (obj instanceof Person) &#123;</span><br><span class="line">  Person person = (Person) obj;</span><br><span class="line">  System.<span class="keyword">out</span>.println(person.getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kotlin</span></span><br><span class="line"><span class="keyword">if</span> (obj <span class="keyword">is</span> Person) &#123;</span><br><span class="line">  println(obj.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="대상을-이터레이션"><a href="#대상을-이터레이션" class="headerlink" title="대상을 이터레이션"></a>대상을 이터레이션</h2><h3 id="while-루프"><a href="#while-루프" class="headerlink" title="while 루프"></a>while 루프</h3><p>코틀린에서는 <code>while</code>과 <code>do-while</code> 루프가 있다. 두 루프의 문법은 자바와 다르지 않다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (조건) &#123;</span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">&#125; <span class="keyword">while</span> (조건)</span><br></pre></td></tr></table></figure>
+<h3 id="for-루프"><a href="#for-루프" class="headerlink" title="for 루프"></a>for 루프</h3><p>코틀린에서 <code>for 루프</code>는 변수의 초기화, 조건, 증분에 대한 요소가 없다. 자바와 동일한 반복문을 작성하기 위해서는 <code>range</code>라는 범위 키위둬를 사용한다. <code>range</code>는 기본적으로 두 값으로 이뤄진 구간이며 폐구간(양 끝을 포함하는) 이다. 사용법은 아래와 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>..<span class="number">100</span>) <span class="comment">// 1부터 100(포함) 범위의 정수에 대해 이터레이션</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">100</span> downTo <span class="number">1</span> step <span class="number">2</span>) <span class="comment">// 100부터 1(포함) 범위를 2씩 감소하며 이터레이션</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until size) <span class="comment">// 0부터 size(비포함)까지 이터레이션</span></span><br></pre></td></tr></table></figure>
+<h3 id="맵에-대한-이터레이션"><a href="#맵에-대한-이터레이션" class="headerlink" title="맵에 대한 이터레이션"></a>맵에 대한 이터레이션</h3><p><code>for 루프</code>는 범위 뿐만 아니라 컬렉션에 대한 이터레이션도 가능하다. 이번에 보일 것은 키와 값으로 이뤄진 맵에 대한 이터레이션이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> binaryRpes = TreeMap&lt;<span class="built_in">Char</span>, String&gt;()</span><br><span class="line"><span class="keyword">for</span> (c <span class="keyword">in</span> <span class="string">'A'</span>..<span class="string">'F'</span>) &#123;</span><br><span class="line">  <span class="keyword">val</span> binary = Integer.toBinaryString(c.toInt())</span><br><span class="line">  binaryReps[c] = binary</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ((letter, binary) <span class="keyword">in</span> binaryReps) &#123;</span><br><span class="line">  println(<span class="string">"<span class="subst">$&#123;letter&#125;</span> = <span class="subst">$&#123;binary&#125;</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>숫자 뿐만 아니라 문자 타입에도 범위를 적용</li>
+<li>자바에서의 맵과 사용법이 조금 다름  <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line">binaryReps.put(c, binary)</span><br><span class="line">binary = binaryReps.<span class="keyword">get</span>(c)</span><br><span class="line"></span><br><span class="line"><span class="comment">// kotlin</span></span><br><span class="line">binaryReps[c] = binary</span><br><span class="line">binary = binaryReps[c]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>위와 같이 맵에 대해 <code>for 루프</code>를 적용할 수 있으며 컬렉션에서도 활용이 가능하다. 컬렉션의 원소와 인덱스를 유지하면서 컬렉션을 이터레이션할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = arrayListOf(<span class="string">"10"</span>, <span class="string">"11"</span>, <span class="string">"1001"</span>)</span><br><span class="line"><span class="keyword">for</span> ((index, element) <span class="keyword">in</span> list) &#123;</span><br><span class="line">  println(<span class="string">"<span class="subst">$&#123;index&#125;</span> : <span class="subst">$&#123;element&#125;</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="in으로-컬렉션이나-범위의-원소-검사"><a href="#in으로-컬렉션이나-범위의-원소-검사" class="headerlink" title="in으로 컬렉션이나 범위의 원소 검사"></a>in으로 컬렉션이나 범위의 원소 검사</h3><p><code>in 연산자</code>를 사용해 어떤 값이 범위에 속하는지 검사할 수 있다. 반대로 <code>!in</code>을 사용하면 어떤 값이 범위에 속하지 않는지 검사할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isLetter</span><span class="params">(c: <span class="type">Char</span>)</span></span> = c <span class="keyword">in</span> <span class="string">'a'</span>..<span class="string">'z'</span> || c <span class="keyword">in</span> <span class="string">'A'</span>..<span class="string">'Z'</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isNotDigit</span><span class="params">(c: <span class="type">Char</span>)</span></span> = c !<span class="keyword">in</span> <span class="string">'0'</span>..<span class="string">'9'</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(isLetter(<span class="string">'q'</span>))</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt;&gt;&gt; println(isNotDigit(<span class="string">'x'</span>))</span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>위의 함수식을 <code>when</code>과 함께 사용하면 더 좋은 코드로 변경된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">recognize</span><span class="params">(c: <span class="type">Char</span>)</span></span> = <span class="keyword">when</span>(c) &#123;</span><br><span class="line">  <span class="keyword">in</span> <span class="string">'0'</span>..<span class="string">'9'</span> -&gt; <span class="string">"It's a digit!"</span></span><br><span class="line">  <span class="keyword">in</span> <span class="string">'a'</span>..<span class="string">'z'</span>, <span class="keyword">in</span> <span class="string">'A'</span>..<span class="string">'Z'</span> -&gt; <span class="string">"It's a letter!"</span></span><br><span class="line">  <span class="keyword">else</span> -&gt; <span class="string">"I don't know"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(recognize(<span class="string">'8'</span>))</span><br><span class="line">It<span class="string">'s a digit!</span></span><br></pre></td></tr></table></figure>
+<h2 id="코틀린의-예외-처리"><a href="#코틀린의-예외-처리" class="headerlink" title="코틀린의 예외 처리"></a>코틀린의 예외 처리</h2><h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try, catch, finally"></a>try, catch, finally</h3><p>자바와 마찬가지로 예외를 처리하려면 <code>try, catch, finally</code> 절을 함께 사용한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">readNumber</span><span class="params">(reader: <span class="type">BufferedReader</span>)</span></span>: <span class="built_in">Int</span>? &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> line = reader.readLine()</span><br><span class="line">    <span class="keyword">return</span> Integer.parseInt(line)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span> (e: NumberFormatException) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">finally</span> &#123;</span><br><span class="line">    reader.close</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="keyword">val</span> reader = BufferedReader(StringReader(<span class="string">"239"</span>))</span><br><span class="line">&gt;&gt;&gt; println(readNumber(reader))</span><br><span class="line"><span class="number">239</span></span><br></pre></td></tr></table></figure>
+<p>자바와 다른 점은 <code>catch</code>에서 지정하지 않은 다른 예외의 대한 처리이다. 자바에서는 명시적으로 <code>throws</code>를 통해 IOException, Exception 등 지정하지 않은 예외를 처리해야 했으나 코틀린에서는 최신의 JVM 언어와 마찬가지로 <code>체크 예외와 언체크 예외</code>를 두었다. 만약 언체크 예외가 발생했을 때 잡아내도 되고 잡아내지 않아도 되게끔 하였다. 그 이유는 프로그래머들이 의미 없는 예외를 다시 던지거나 잡는 불편함을 없애기 위함이다.</p>
+<h3 id="try를-식으로-사용"><a href="#try를-식으로-사용" class="headerlink" title="try를 식으로 사용"></a>try를 식으로 사용</h3><p>앞서 설명했듯이 코틀린에서는 대부분이 식이다. 그러므로 <code>try</code>또한 식으로 사용할 수 있다. 앞에서 예들 들었던 코드를 식으로 처리할 수도 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">readNumber</span><span class="params">(reader: <span class="type">BufferedReader</span>)</span></span> &#123;</span><br><span class="line">  <span class="keyword">val</span> number = <span class="keyword">try</span> &#123;</span><br><span class="line">    Integer.parseInt(reader.readLine())</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e: NumberFormatException) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="comment">// &lt;- return 절 밑으로 실행하지 않으려면 return을 사용</span></span><br><span class="line">    <span class="literal">null</span> <span class="comment">// &lt;- 예외 발생시 계속 진행하고 싶다면 값을 반환</span></span><br><span class="line">  &#125;</span><br><span class="line">  println(number)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/28/first-funtion-definition-and-call/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">함수 정의와 호출 1</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/25/first-basic-kotlin/">
+                <span class="level-item">[Kotlin] 코틀린의 기초 1</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/03/26/second-basic-kotlin/';
+        this.page.identifier = '2020/03/26/second-basic-kotlin/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#선택-표현과-처리-enum과-when">
+        <span class="has-mr-6">1</span>
+        <span>선택 표현과 처리: enum과 when</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#enum-클래스-정의">
+        <span class="has-mr-6">1.1</span>
+        <span>enum 클래스 정의</span>
+        </a></li><li>
+        <a class="is-flex" href="#when">
+        <span class="has-mr-6">1.2</span>
+        <span>when</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#스마트-캐스트-타입-검사와-타입-캐스트를-조합">
+        <span class="has-mr-6">2</span>
+        <span>스마트 캐스트: 타입 검사와 타입 캐스트를 조합</span>
+        </a></li><li>
+        <a class="is-flex" href="#대상을-이터레이션">
+        <span class="has-mr-6">3</span>
+        <span>대상을 이터레이션</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#while-루프">
+        <span class="has-mr-6">3.1</span>
+        <span>while 루프</span>
+        </a></li><li>
+        <a class="is-flex" href="#for-루프">
+        <span class="has-mr-6">3.2</span>
+        <span>for 루프</span>
+        </a></li><li>
+        <a class="is-flex" href="#맵에-대한-이터레이션">
+        <span class="has-mr-6">3.3</span>
+        <span>맵에 대한 이터레이션</span>
+        </a></li><li>
+        <a class="is-flex" href="#in으로-컬렉션이나-범위의-원소-검사">
+        <span class="has-mr-6">3.4</span>
+        <span>in으로 컬렉션이나 범위의 원소 검사</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#코틀린의-예외-처리">
+        <span class="has-mr-6">4</span>
+        <span>코틀린의 예외 처리</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#try-catch-finally">
+        <span class="has-mr-6">4.1</span>
+        <span>try, catch, finally</span>
+        </a></li><li>
+        <a class="is-flex" href="#try를-식으로-사용">
+        <span class="has-mr-6">4.2</span>
+        <span>try를 식으로 사용</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="[Kotlin] 코틀린의 기초 2" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

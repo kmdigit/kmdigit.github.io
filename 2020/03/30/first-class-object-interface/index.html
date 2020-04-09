@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/03/30/first-class-object-interface/">
+<title>[Kotlin] 클래스, 객체, 인터페이스 1 - Fun Programm Life</title>
+
+
+    <meta name="description" content="코틀린 인터페이스코틀린 인터페이스는 자바8과 비슷하게 추상 메소드 뿐만 아니라 구현이 있는 메소드도 정의할 수 있다. 다만 인터페이스에는 아무런 상태(필드)도 들어갈 수 없다. 12345678interface Clickable &amp;#123;  fun click()  fun showOff() &#x3D; println(&quot;I&#39;m clickable&quot;)&amp;#125;class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 클래스, 객체, 인터페이스 1">
+<meta property="og:url" content="https://kmdigit.github.io/2020/03/30/first-class-object-interface/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="코틀린 인터페이스코틀린 인터페이스는 자바8과 비슷하게 추상 메소드 뿐만 아니라 구현이 있는 메소드도 정의할 수 있다. 다만 인터페이스에는 아무런 상태(필드)도 들어갈 수 없다. 12345678interface Clickable &amp;#123;  fun click()  fun showOff() &#x3D; println(&quot;I&#39;m clickable&quot;)&amp;#125;class">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-03-30T11:59:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:13:39.701Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="interface">
+<meta property="article:tag" content="sealed">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="[Kotlin] 클래스, 객체, 인터페이스 1" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="[Kotlin] 클래스, 객체, 인터페이스 1">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-30T11:59:00.000Z">2020-03-30</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11분 읽기 (대략 1583 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [Kotlin] 클래스, 객체, 인터페이스 1
+            
+        </h1>
+        <div class="content">
+            <h2 id="코틀린-인터페이스"><a href="#코틀린-인터페이스" class="headerlink" title="코틀린 인터페이스"></a>코틀린 인터페이스</h2><p>코틀린 인터페이스는 자바8과 비슷하게 추상 메소드 뿐만 아니라 구현이 있는 메소드도 정의할 수 있다. 다만 인터페이스에는 아무런 상태(필드)도 들어갈 수 없다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Clickable</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">click</span><span class="params">()</span></span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">showOff</span><span class="params">()</span></span> = println(<span class="string">"I'm clickable"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> : <span class="type">Clickable &#123;</span></span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">click</span><span class="params">()</span></span> = println(<span class="string">"I' was clicked"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>콜론(:)</code>을 붙여 클래스 확장과 인터페이스를 구현 모두를 처리한다.</li>
+<li><code>override</code>변경자는 @Override 애노테이션과 동일하게 오버라이드 표시를 하지만 오버라이드 시 <code>반드시 사용</code>해야 한다.</li>
+<li>showOff와 같이 <code>디폴트 함수</code>를 제공한다.<a id="more"></a>
+
+</li>
+</ul>
+<p>인터페이스는 자바와 동일하게 하나의 클래스가 여러 인터페이스를 구현할 수 있는데 동일한 인터페이스의 디폴트 함수가 있을 경우 코틀린에서는 컴파일 에러로 사용자에게 하위 클래스에 직접 구현하게 강제한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interfacle Focusable &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">showOff</span><span class="params">()</span></span> = println(<span class="string">"I'm focusable"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span>: <span class="type">Clickable</span>, <span class="type">Focusable &#123;</span></span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">showOff</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>&lt;Clickable&gt;.showOff()</span><br><span class="line">    <span class="keyword">super</span>&lt;Focusable&gt;.showOff()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Clickable, Focusable의 <code>showOff</code>함수가 동일하므로 오버라이드 하였다.</li>
+<li>상위 타입 호출 시 자바와는 다르게 <code>super&lt;&gt;</code>를 사용한다. (자바는 Clickable.super.showOff()처럼 호출한다)</li>
+</ul>
+<h2 id="기본적으로-final"><a href="#기본적으로-final" class="headerlink" title="기본적으로 final"></a>기본적으로 final</h2><p>코틀린에서는 자바와는 다르게 기본적으로 아무것도 명시하지 않을 시 모든 클래스와 함수는 <code>final</code>이다. 그 이유는 <code>취약한 기반 클래스(fragile base class)</code>라는 문제를 기반하기 때문이다. 이 문제는 하위 클래스가 기반 클래스에 대해 가졌던 가정이 기반 클래스를 변경함으로써 깨져버린 경우에 생긴다. 즉 Effective Java에서처럼 <code>상속을 위한 설계와 문서를 갖추거나, 그럴수 없다면 상속을 금지하라</code>라는 철학을 따라 기본적으로 모두 <code>final</code>이다.</p>
+<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>어떤 클래스의 상속을 허용하려면 <code>open</code>변경자를 붙여야 한다. 함수도 마찬가지이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">RightButton</span> : <span class="type">Clickable &#123;</span></span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">disable</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">animate</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">click</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>disable함수는 <code>오버라이드 불가</code>이다.</li>
+<li>animate함수는 열려있으므로 <code>오버라이드 가능</code>이다.</li>
+<li>click함수는 오버라이드 함수므로 <code>기본적으로 열려</code>있다.</li>
+<li>RightButton클래스는 열려 있으므로 <code>상속이 가능</code>하다.</li>
+</ul>
+<h3 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h3><p>추상 클래스를 정의할 땐 <code>abstract 변경자</code>를 사용한다. 추상 클래스 및 추상 멤버는 inteface와 동일하게 <code>기본적으로 모두 열려</code>있다. 그러므로 open 변경자를 명시할 필요가 없다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animated</span> </span>&#123;</span><br><span class="line">  <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">animate</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">stopAnimating</span><span class="params">()</span></span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">animateTwice</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>abstract 클래스이므로 <code>상속이 가능</code>하다.</li>
+<li>animate함수는 추상함수이므로 <code>오버라이드가 가능</code>하다.</li>
+<li>stopAnimating함수는 비추상 함수이지만 <code>open이므로 오버라이드가 가능</code>하다</li>
+<li>animateTwice함수는 비추상 함수이므로 <code>오버라이드가 불가능</code>하다.</li>
+</ul>
+<h2 id="가시성-변경자-기본적으로-공개"><a href="#가시성-변경자-기본적으로-공개" class="headerlink" title="가시성 변경자 : 기본적으로 공개"></a>가시성 변경자 : 기본적으로 공개</h2><ul>
+<li>아무 변경자도 없는 경우 선언은 모두 public이다.</li>
+<li>internal 변경자는 모듈 내부에서만 볼 수 있음을 의미한다.</li>
+<li>가시성은 public &gt; internal &gt; protected &gt; private 순서이다.<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">TalkativeButton</span> : <span class="type">Fucosable &#123;</span></span></span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">yell</span><span class="params">()</span></span> = println(<span class="string">"Hey!"</span>)</span><br><span class="line">  <span class="keyword">protected</span> <span class="function"><span class="keyword">fun</span> <span class="title">whisper</span><span class="params">()</span></span> = println(<span class="string">"Let's talk!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> TalkativeButton.<span class="title">giveSpeech</span><span class="params">()</span></span> &#123;</span><br><span class="line">  yell()</span><br><span class="line">  whisper()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>giveSpeech 함수는 확장 함수로 public이 기본이므로 internal TalkativeButton 수신 타입을 <code>확장 할 수 없다</code>.</li>
+<li>yell함수는 private이므로 public 함수에서 <code>접근이 불가능</code>하다.</li>
+<li>whisper함수는 protected이므로 public함수에서 <code>접근이 불가능</code>하다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="내부-inner-클래스와-중첩-nested-클래스-기본은-중첩"><a href="#내부-inner-클래스와-중첩-nested-클래스-기본은-중첩" class="headerlink" title="내부(inner) 클래스와 중첩(nested) 클래스 : 기본은 중첩"></a>내부(inner) 클래스와 중첩(nested) 클래스 : 기본은 중첩</h2><p>자바에서는 static 키워드를 사용하지 않고 클래스 내부에 클래스를 선언하면 기본적으로 내부(inner) 클래스로 선언된다. 내부 클래스는 외부 클래스를 모르게 참조하고 있어 만약 직렬화 시 원하는대로 작동되지 않을 수가 있다.</p>
+<p>코틀린에서는 자바와는 다르게 내부에 클래스를 선언하게 되면 중첩(nested)클래스로 선언된다. 자바에서 static으로 선언한 내부 클래스와 똑같이 말이다. 만약 내부 클래스로 선언하려면 <code>inner</code>변경자를 붙여야 하며 내부에서 외부 클래스를 접근하려면 <code>this@클래스명</code>으로 접근해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getOuterReference</span><span class="params">()</span></span> : Outer = <span class="keyword">this</span><span class="symbol">@Outer</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="봉인된-클래스-sealed"><a href="#봉인된-클래스-sealed" class="headerlink" title="봉인된 클래스 : sealed"></a>봉인된 클래스 : sealed</h2><p>인터페이스로 선언한 클래스를 상속받은 클래스를 <code>when</code>구문으로 타입 검사를 할 경우 항상 <code>else</code>구문이 강제되어야 한다. 만약 인터페이스를 상속한 클래스를 해당 when구문에 추가하지 않는다면 else구문이 실행되므로 원하지 않는 에러가 발생할 수 있다. 코틀린에서는 이런 문제점을 해결하기 위해 <code>sealed</code>라는 변경자를 지원한다. 이 sealed 변경자는 클래스 계층 정의 시 계층 확장을 제한에 둔다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// interface로 상속받은 클래스 별 실행</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Expr</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Num</span></span>(<span class="keyword">val</span> value: <span class="built_in">Int</span>): Expr</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sum</span></span>(<span class="keyword">val</span> left: <span class="built_in">Int</span>, <span class="keyword">val</span> right: <span class="built_in">Int</span>): Expr</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">eval</span><span class="params">(e: <span class="type">Expr</span>)</span></span>: <span class="built_in">Int</span> =</span><br><span class="line">  <span class="keyword">when</span> (e) &#123;</span><br><span class="line">    <span class="keyword">is</span> Num -&gt; e.value</span><br><span class="line">    <span class="keyword">is</span> Sum -&gt; eval(e.left) + eval(e.right)</span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Unknown expression"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// sealed클래스로 선언된 클래스 별 실행</span></span><br><span class="line"><span class="keyword">sealed</span> <span class="class"><span class="keyword">class</span> <span class="title">Expr</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Num</span></span>(<span class="keyword">val</span> value: <span class="built_in">Int</span>): Expr()</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Sum</span></span>(<span class="keyword">val</span> left: <span class="built_in">Int</span>, <span class="keyword">val</span> right: <span class="built_in">Int</span>): Expr()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">eval</span><span class="params">(e: <span class="type">Expr</span>)</span></span> =</span><br><span class="line">  <span class="keyword">when</span> (e) &#123;</span><br><span class="line">    <span class="keyword">is</span> Expr.Num -&gt; e.value</span><br><span class="line">    <span class="keyword">is</span> Expr.Sum -&gt; eval(e.left) + eval(e.right)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>sealed 클래스 내부에 선언한 클래스들은 Expr 클래스를 상속받고 있어 when 구문에서 타입 검사가 이뤄지며 코틀린에서는 만약 Expr클래스를 상속받은 다른 클래스가 생기면 컴파일 에러로 사용자에게 알려준다. 또한 sealed 클래스는 상속이 가능하므로 open 클래스이며 기본으로 <code>open 변경자</code>를 갖고 있다.</p>
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/interface/" rel="tag">interface</a>, <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>, <a class="has-link-grey -link" href="/tags/sealed/" rel="tag">sealed</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/30/set-specific-git-user-email/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Git 배포 시 Contribution이 올라가지 않을 때</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/29/second-funtion-definition-and-call/">
+                <span class="level-item">함수 정의와 호출 2</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/03/30/first-class-object-interface/';
+        this.page.identifier = '2020/03/30/first-class-object-interface/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#코틀린-인터페이스">
+        <span class="has-mr-6">1</span>
+        <span>코틀린 인터페이스</span>
+        </a></li><li>
+        <a class="is-flex" href="#기본적으로-final">
+        <span class="has-mr-6">2</span>
+        <span>기본적으로 final</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#open">
+        <span class="has-mr-6">2.1</span>
+        <span>open</span>
+        </a></li><li>
+        <a class="is-flex" href="#abstract">
+        <span class="has-mr-6">2.2</span>
+        <span>abstract</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#가시성-변경자-기본적으로-공개">
+        <span class="has-mr-6">3</span>
+        <span>가시성 변경자 : 기본적으로 공개</span>
+        </a></li><li>
+        <a class="is-flex" href="#내부-inner-클래스와-중첩-nested-클래스-기본은-중첩">
+        <span class="has-mr-6">4</span>
+        <span>내부(inner) 클래스와 중첩(nested) 클래스 : 기본은 중첩</span>
+        </a></li><li>
+        <a class="is-flex" href="#봉인된-클래스-sealed">
+        <span class="has-mr-6">5</span>
+        <span>봉인된 클래스 : sealed</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="[Kotlin] 클래스, 객체, 인터페이스 1" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

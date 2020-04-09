@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/03/23/what-is-kotlin/">
+<title>[Kotlin] 코틀린이란 - Fun Programm Life</title>
+
+
+    <meta name="description" content="코틀린 자바 플랫폼에서 돌아가는 프로그래밍 언어 간결하고 실용적이며, 자바 코드와의 상호운용성을 중시 자바가 사용되는 곳이라면 코틀린으로 활용 가능 기존의 자바 라이브러리나 프레임워크와 함께 잘 작동하며 성능도 자바와 같은 수준">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 코틀린이란">
+<meta property="og:url" content="https://kmdigit.github.io/2020/03/23/what-is-kotlin/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="코틀린 자바 플랫폼에서 돌아가는 프로그래밍 언어 간결하고 실용적이며, 자바 코드와의 상호운용성을 중시 자바가 사용되는 곳이라면 코틀린으로 활용 가능 기존의 자바 라이브러리나 프레임워크와 함께 잘 작동하며 성능도 자바와 같은 수준">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-03-23T10:44:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:14:05.357Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="[Kotlin] 코틀린이란" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="[Kotlin] 코틀린이란">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-23T10:44:00.000Z">2020-03-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9분 읽기 (대략 1377 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [Kotlin] 코틀린이란
+            
+        </h1>
+        <div class="content">
+            <h2 id="코틀린"><a href="#코틀린" class="headerlink" title="코틀린"></a>코틀린</h2><ul>
+<li>자바 플랫폼에서 돌아가는 프로그래밍 언어</li>
+<li>간결하고 실용적이며, 자바 코드와의 상호운용성을 중시</li>
+<li>자바가 사용되는 곳이라면 코틀린으로 활용 가능</li>
+<li>기존의 자바 라이브러리나 프레임워크와 함께 잘 작동하며 성능도 자바와 같은 수준<a id="more"></a>
+
+</li>
+</ul>
+<h2 id="코틀린의-주요-특성"><a href="#코틀린의-주요-특성" class="headerlink" title="코틀린의 주요 특성"></a>코틀린의 주요 특성</h2><h3 id="정적-타입-statically-typed-지정-언어"><a href="#정적-타입-statically-typed-지정-언어" class="headerlink" title="정적 타입(statically typed) 지정 언어"></a>정적 타입(statically typed) 지정 언어</h3><p>모든 프로그램 구성 요소의 타입을 컴파일 시점에 알 수 있고 프로그램 안에서 객체의 필드나 메소드를 사용할 때마다 컴파일러가 타입을 검증해준다.</p>
+<p>JVM에서의 동적 타입(dynamically typed) 지정 언어인 그루비, JRuby는 메소드나 필드 접근에 대한 검증이 실행 시점에 일어나며, 그에 따라 코드가 더 짧아지고 데이터 구조를 더 유연하게 생성하고 사용할 수 있다. 하지만 반대로 이름을 잘못 입력하는 등의 실수도 컴파일 시 걸러내지 못하고 실행 시점에 오류가 발생한다.</p>
+<p>대신 코틀린에서는 자바와 달리 컴파일러가 문맥으로부터 변수 타입을 자동으로 유추할 수 있기 때문에 타입 선언을 생략할 수 있다. 이를 타입 추론(type interence)라고 부른다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span> <span class="comment">// typed Int</span></span><br></pre></td></tr></table></figure>
+
+<p>정적 타입은 아래의 장점을 갖는다.</p>
+<ul>
+<li>성능</li>
+<li>신뢰성</li>
+<li>유지 보수성</li>
+<li>도구 지원</li>
+</ul>
+<h3 id="함수형-프로그래밍과-객체지향-프로그래밍"><a href="#함수형-프로그래밍과-객체지향-프로그래밍" class="headerlink" title="함수형 프로그래밍과 객체지향 프로그래밍"></a>함수형 프로그래밍과 객체지향 프로그래밍</h3><p>코틀린은 객체지향 뿐만 아니라 함수형 프로그램이도 지원하고 있다. (자바는 8이상부터 가능했다)<br>함수형 프로그래밍의 핵심 개념은 다음과 같다.</p>
+<ul>
+<li><p>일급 시민(first-class)인 함수<br>  함수를 일반 값처럼 다룰 수 있다. 함수를 변수에 저장할 수 있고, 함수를 인자로 다른 함수에 전달할 수 있으며, 함수에서 새로운 함수를 만들어서 반환할 수 있다.</p>
+</li>
+<li><p>불변성(immutalbility)<br>  함수형 프로그래밍에서는 일단 만들어지고 나면 내부 상태가 절대로 바뀌지 않는 불변 객체를 사용해 프로그래밍을 작성한다.</p>
+</li>
+<li><p>부수 효과(side effect) 없음<br>  함수형 프로그래밍에서는 입력이 같으면 항상 같은 출력을 내놓고 다른 객체의 상태를 변경하지 않으며, 함수 외부나 다른 바깥 환경과 상호작용하지 않는 순수 함수(pure function)를 사용한다.</p>
+</li>
+</ul>
+<p>위와 같은 함수형 프로그래밍을 하게 되면 다음과 같은 장점을 얻을 수 있다.</p>
+<ul>
+<li><p>간결함<br>  일반적인 명령형 코드에 비해 더 간결하고 우아하다.</p>
+</li>
+<li><p>추상화<br>  함수를 값처럼 활용할 수 있으면 더 강력한 추상화를 할 수 있고 강력한 추상화를 사용해 코드 중복을 막을 수 있다.</p>
+</li>
+<li><p>스레드 세이프<br>  함수형 프로그래밍의 개념 중 불변성에 의해 다중 스레드 프로그램에서 적절한 동기화 없이도 안전한 프로그래밍을 할 수 있다.</p>
+</li>
+</ul>
+<h2 id="코틀린의-철학"><a href="#코틀린의-철학" class="headerlink" title="코틀린의 철학"></a>코틀린의 철학</h2><h3 id="실용성"><a href="#실용성" class="headerlink" title="실용성"></a>실용성</h3><p>코틀린은 실제 문제를 해결하기 위해 만들어진 실용적인 언어이며 연구를 위한 언어가 아니다. 코틀린은 다년간의 IT업계 경험을 바탕으로 이뤄졌으며, 소프트웨어 개발자들의 사용에 잘 들어맞을 수 있게 주의 깊게 언어 특성을 선택했다.</p>
+<h3 id="간결성"><a href="#간결성" class="headerlink" title="간결성"></a>간결성</h3><p>코틀린을 만들면서 프로그래머가 작성하는 코드에서 의미가 없는 부분을 줄이고, 언어가 요구하는 구조를 만족시키기 위해 별 뜻은 없지만 프로그램에 꼭 넣어야 하는 부수적인 요소를 줄이기 위해 많은 노력을 했다. 그 예로 Getter, Setter, Constructor 등 자바에 존재하는 여러가지 번거로운 준비 코드를 코틀린은 묵시적으로 제공한다.</p>
+<h3 id="안전성"><a href="#안전성" class="headerlink" title="안전성"></a>안전성</h3><p>일반적인 프로그램에서는 안전성과 생산성 사이의 트레이드오프 관계가 성립한다. 코틀린은 이러한 트레이드오프에서 높은 수준의 안전성을 달성하되 전체 비용은 더 적게 들기 위한 노력을 했다. 애초에 JVM위에서 작동하는 언어이므로 메모리 안전성이나, 버퍼 오버플로를 방지와 같은 기본적인 다양한 문제를 예방할 수 있다. 여기에 코틀린은 타입 추론을 통한 개발자의 실수를 줄일 수 있게 하였다. 한 걸음 더 나아가서는 NullPointerException을 없애기 위해 null에 대한 허용을 제한할 수 있다.</p>
+<h3 id="상호운용성"><a href="#상호운용성" class="headerlink" title="상호운용성"></a>상호운용성</h3><p>코틀린은 자바 라이브러리를 어떠한 장치도 필요없이 그대로 사용이 가능하다. 자바로 된 프로젝트에 코틀린을 적용할 수 있으며 코틀린 프로젝트에도 자바를 적용해도 무리없이 동작이 가능하다.</p>
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/25/first-basic-kotlin/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">[Kotlin] 코틀린의 기초 1</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/21/custom-influxdb-configuration-on-spring/">
+                <span class="level-item">[Spring] InfluxDB 커스텀으로 다른 DB 사용하기</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/03/23/what-is-kotlin/';
+        this.page.identifier = '2020/03/23/what-is-kotlin/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#코틀린">
+        <span class="has-mr-6">1</span>
+        <span>코틀린</span>
+        </a></li><li>
+        <a class="is-flex" href="#코틀린의-주요-특성">
+        <span class="has-mr-6">2</span>
+        <span>코틀린의 주요 특성</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#정적-타입-statically-typed-지정-언어">
+        <span class="has-mr-6">2.1</span>
+        <span>정적 타입(statically typed) 지정 언어</span>
+        </a></li><li>
+        <a class="is-flex" href="#함수형-프로그래밍과-객체지향-프로그래밍">
+        <span class="has-mr-6">2.2</span>
+        <span>함수형 프로그래밍과 객체지향 프로그래밍</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#코틀린의-철학">
+        <span class="has-mr-6">3</span>
+        <span>코틀린의 철학</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#실용성">
+        <span class="has-mr-6">3.1</span>
+        <span>실용성</span>
+        </a></li><li>
+        <a class="is-flex" href="#간결성">
+        <span class="has-mr-6">3.2</span>
+        <span>간결성</span>
+        </a></li><li>
+        <a class="is-flex" href="#안전성">
+        <span class="has-mr-6">3.3</span>
+        <span>안전성</span>
+        </a></li><li>
+        <a class="is-flex" href="#상호운용성">
+        <span class="has-mr-6">3.4</span>
+        <span>상호운용성</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-31T09:02:00.000Z">2020-03-31</time></div>
+                    <a href="/2020/03/31/remove-all-container-that-status-is-exited/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker :: 중지 된 모든 컨테이너 한 번에 삭제하기</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="[Kotlin] 코틀린이란" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

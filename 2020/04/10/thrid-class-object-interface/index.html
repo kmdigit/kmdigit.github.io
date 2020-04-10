@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/04/10/thrid-class-object-interface/">
+<title>Kotlin :: 클래스, 객체, 인터페이스 3 - Fun Programm Life</title>
+
+
+    <meta name="description" content="1편 : Kotlin :: 클래스, 객체, 인터페이스 12편 : Kotlin :: 클래스, 객체, 인터페이스 2   Data 클래스자바에서 클래스를 생성하면 반듯이 하는 3가지 함수가 있다.  toString equals hashCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin :: 클래스, 객체, 인터페이스 3">
+<meta property="og:url" content="https://kmdigit.github.io/2020/04/10/thrid-class-object-interface/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="1편 : Kotlin :: 클래스, 객체, 인터페이스 12편 : Kotlin :: 클래스, 객체, 인터페이스 2   Data 클래스자바에서 클래스를 생성하면 반듯이 하는 3가지 함수가 있다.  toString equals hashCode">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-04-10T01:43:00.000Z">
+<meta property="article:modified_time" content="2020-04-10T01:53:55.424Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="data class">
+<meta property="article:tag" content="object class">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Kotlin :: 클래스, 객체, 인터페이스 3" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 3">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-10T01:43:00.000Z">2020-04-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13분 읽기 (대략 1903 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Kotlin :: 클래스, 객체, 인터페이스 3
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>1편 : <a href="https://kmdigit.github.io/2020/03/30/first-class-object-interface/">Kotlin :: 클래스, 객체, 인터페이스 1</a><br>2편 : <a href="https://kmdigit.github.io/2020/04/03/second-class-object-interface/">Kotlin :: 클래스, 객체, 인터페이스 2</a></p>
+</blockquote>
+<hr>
+<h2 id="Data-클래스"><a href="#Data-클래스" class="headerlink" title="Data 클래스"></a>Data 클래스</h2><p>자바에서 클래스를 생성하면 반듯이 하는 3가지 함수가 있다.</p>
+<ul>
+<li>toString</li>
+<li>equals</li>
+<li>hashCode<a id="more"></a>
+특히 equals와 hashCode는 반듯이 필요하며 둘은 함께 동반해야 하는데 자바의 규칙중에 <code>equals가 동일한 객체는 반듯이 같은 hashCode를 반환해야 한다</code> 때문이다. 코틀린에서는 위와 같은 필수 함수들을 <code>data</code>라는 키워드를 통해 한 번에 해결할 수 있다.<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// original</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> postalCode: <span class="built_in">Int</span>) &#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String = <span class="string">"Client(name=<span class="variable">$name</span>, postalCode=<span class="variable">$postcalCode</span>)"</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">equals</span><span class="params">(other: <span class="type">Any</span>?)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (other == <span class="literal">null</span> || other !<span class="keyword">is</span> Client)</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">return</span> name == other.name &amp;&amp; postalCode == other.postalCode</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">hashCode</span><span class="params">()</span></span>: <span class="built_in">Int</span> = name.hashCode() * <span class="number">31</span> + postalCode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// data class</span></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> postalCode: <span class="built_in">Int</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="데이터-클래스와-불변성-copy-메소드"><a href="#데이터-클래스와-불변성-copy-메소드" class="headerlink" title="데이터 클래스와 불변성: copy() 메소드"></a>데이터 클래스와 불변성: copy() 메소드</h3><p>코틀린에서는 데이터 클래스의 모든 프로퍼티를 <code>읽기 전용</code>으로 만들어서 데이터 클래스를 <code>불변 클래스</code>로 만들라고 권장한다. (물론 프로퍼티를 val이 아닌 var로 선언해도 된다.) 그렇기 때문에 코틀린에서는 원본을 두고 일부 프로퍼티를 바꿀 수 있게 해주는 <code>copy 메소드</code>를 제공하고 있다. 간단한 정의와 사용법은 아래와 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> postalCode: <span class="built_in">Int</span>) &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">copy</span><span class="params">(name: <span class="type">String</span> = this.name, postalCode = this.postalCode)</span></span> = Client(name, postalCode)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="keyword">val</span> funlee = Client(<span class="string">"funlee"</span>, <span class="number">1234</span>)</span><br><span class="line">&gt;&gt;&gt; println(funlee.copy(postalCode = <span class="number">4444</span>))</span><br><span class="line">&gt;&gt;&gt; Client(name=funlee, postalCode=<span class="number">4444</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="클래스-위임-by-키워드"><a href="#클래스-위임-by-키워드" class="headerlink" title="클래스 위임: by 키워드"></a>클래스 위임: by 키워드</h3><blockquote>
+<p>책에는 데코레이터 패턴이라고 나오나 이 부분은 오역인 것 같아 제 개인적인 견해로 해석하였습니다.</p>
+</blockquote>
+<p>델리게이트 패턴(<a href="[https://kotlinlang.org/docs/reference/delegation.html#class-delegation](https://kotlinlang.org/docs/reference/delegation.html#class-delegation)">Delegation Kotlin</a>)은 상속과는 다르게 유연한 모듈간의 구성을 할 수 있도록 도와주는 패턴이다. 코틀린에서는 클래스가 기본적으로 final이므로 상속이 불가능하다. 이는 상속으로 인한 복잡한 종속성을 배제하기 위함으로 코틀린의 기본 철학이기 때문에 위임이라는 델리게이트 패턴을 직접적으로 제공하고 있다.</p>
+<p>델리게이트 패턴은 내부에 가지고 있는 객체의 멤버 함수만큼 똑같이 만들어야 하기 때문에 사전 작업이 너무 많이 필요하다. 그렇기에 코틀린은 이마저도 쉽게 할 수 있도록 <code>by</code>라는 키워드로 위임을 지원한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vanila delegation</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DelegatingCollection</span>&lt;<span class="type">T</span>&gt;: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> innerList = arrayListOf&lt;T&gt;()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span> <span class="keyword">get</span>() = innerList.size</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> = innerList.isEmpty()</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: <span class="type">T</span>)</span></span>: <span class="built_in">Boolean</span> = innerList.contains(element)</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;T&gt; = innerList.interator()</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">containsAll</span><span class="params">(elements: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;)</span></span>: <span class="built_in">Boolean</span> = innerList.containsAll(elements)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// by delegation</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DelegatingCollection</span>&lt;<span class="type">T</span>&gt;</span>(</span><br><span class="line">  innerList: Collection&lt;T&gt; = ArrayList&lt;T&gt;()</span><br><span class="line">) : Collection&lt;T&gt; <span class="keyword">by</span> innerList</span><br></pre></td></tr></table></figure>
+<p>만약 위임받는 객체의 메소드에 다른 기능을 추가하기 위해서는 그 메소드만 <code>오버라이드</code>하면 된다. 오버라이드 한 메소드는 기본 메소드 대신 컴파일되어 사용된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CountingSet</span>&lt;<span class="type">T</span>&gt;</span>(</span><br><span class="line">  <span class="keyword">val</span> innerSet: MutableCollection&lt;T&gt; = HashSet&lt;T&gt;()</span><br><span class="line">): MutableCollection&lt;T&gt; <span class="keyword">by</span> innerSet &#123;</span><br><span class="line">  <span class="keyword">var</span> objectAdded = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">add</span><span class="params">(element: <span class="type">T</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    objectAdded++</span><br><span class="line">    <span class="keyword">return</span> innerSet.add(element)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">addAll</span><span class="params">(elements: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    objectAdded += elements.size</span><br><span class="line">    <span class="keyword">return</span> innerSet.addAll(elements)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="object-키워드-클래스-선언과-인스턴스-생성"><a href="#object-키워드-클래스-선언과-인스턴스-생성" class="headerlink" title="object 키워드: 클래스 선언과 인스턴스 생성"></a>object 키워드: 클래스 선언과 인스턴스 생성</h2><h3 id="싱글턴"><a href="#싱글턴" class="headerlink" title="싱글턴"></a>싱글턴</h3><p>프로그램이 실행되고 종료할 때까지 단 하나의 객체로 사용하기 위한 패턴을 싱글턴 패턴이라 하고 많은 언어에서는  이 싱글턴 패턴을 직접 구현한다. 자바에서는 생성자를 private으로 선언하고 static으로 객체를 선언한 후 해당 객체를 리턴해주는 함수를 제공한다.</p>
+<p>코틀린에서는 thread-safe 한 싱글턴 패턴을 만들기 위한 복잡함을 없애고 <code>object</code>라는 키워드로 싱글턴을 구현할 수 있도록 제공하고 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> Payroll &#123;</span><br><span class="line">  <span class="keyword">val</span> allEmployees = arrayListOf&lt;Person&gt;()</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">calculateSalary</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (person <span class="keyword">in</span> allEmployees) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; Payroll.allEmployees.add(Person(...))</span><br><span class="line">&gt;&gt;&gt; Payroll.calculateSalary()</span><br></pre></td></tr></table></figure>
+
+<h3 id="동반-객체-팩토리-메소드와-정적-멤버가-들어갈-장소"><a href="#동반-객체-팩토리-메소드와-정적-멤버가-들어갈-장소" class="headerlink" title="동반 객체: 팩토리 메소드와 정적 멤버가 들어갈 장소"></a>동반 객체: 팩토리 메소드와 정적 멤버가 들어갈 장소</h3><p>코틀린 클래스 안에는 정적인 멤버가 없다. 자바 static 키워를 지원하지 않는다는 뜻이다. 그 이유인 즉 static 키워드로 작성 된 함수는 코틀린의 최상위 함수로 대체할 수 있기 때문이다. 하지만 최상위 함수가 모두 처리할 수 있는 것은 아니다. 클래스 내부의 private 은 접근하지 못하기 때문에 결국 클래스 내부에 이와 같은 함수를 정의해야 한다.</p>
+<p>이럴 때 사용할 수 있는 것이 바로 <code>companion object</code>이다. <code>companion object</code>로 클래스 내부에 선언하면 그 클래스의 동반 객체로 만들 수 있으며 이름을 넣기도 혹은 뺄 수도 있다. <code>여기서 말하는 동반 객체는 static을 대체하긴 하지만 static과는 다르다. object 클래스이므로 객체 내부에 존재하는 싱글턴 객체이다.</code> 특히 이 동반 객체는 팩토리 메소드를 제공하는 데 있어 탁월한 역할을 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>(<span class="keyword">val</span> name: String) &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">newSubscribingUser</span><span class="params">(email: <span class="type">String</span>)</span></span> = User(email.substringBefore(<span class="string">'@'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">newFacebookUser</span><span class="params">(accountId: <span class="type">Int</span>)</span></span> = User(getFacebookName(accountId))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="keyword">val</span> subscribingUser = User.newSubscribingUser(<span class="string">"funlee@kakao.com"</span>)</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">val</span> facebookUser = User.newFacebookUser(<span class="number">4</span>)</span><br><span class="line">&gt;&gt;&gt; println(subscribingUser.name)</span><br><span class="line">&gt;&gt;&gt; funlee</span><br></pre></td></tr></table></figure>
+
+<h3 id="동반-객체를-일반-객체처럼-사용"><a href="#동반-객체를-일반-객체처럼-사용" class="headerlink" title="동반 객체를 일반 객체처럼 사용"></a>동반 객체를 일반 객체처럼 사용</h3><p>위의 예제에서는 동반 객체에 이름을 사용하지 않았지만 이름도 넣을 수 있다. 말 그대로 객체이므로 선언이 가능하기 때문이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String) &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> Loader &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">fromJSON</span><span class="params">(jsonText: <span class="type">String</span>)</span></span>: Person = ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; person = Person.Loader.fromJSON(<span class="string">"&#123;name: 'funlee'&#125;"</span>)</span><br><span class="line">&gt;&gt;&gt; println(person.name)</span><br><span class="line">&gt;&gt;&gt; funlee</span><br></pre></td></tr></table></figure>
+
+<h3 id="동반-객체에서-인터페이스-구현"><a href="#동반-객체에서-인터페이스-구현" class="headerlink" title="동반 객체에서 인터페이스 구현"></a>동반 객체에서 인터페이스 구현</h3><p>동반 객체도 객체이므로 인터페이스를 구현할 수 있으며 인터페이스를 구현한 동반 객체를 참조할 때 객체를 둘러싼 클래스의 이름을 바로 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">JSONFactory</span>&lt;<span class="type">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">fromJSON</span><span class="params">(jsonText: <span class="type">String</span>)</span></span>: T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String) &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span>: JSONFactory&lt;Person&gt; &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">fromJSON</span><span class="params">(jsonText: <span class="type">String</span>)</span></span>: Person = ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> loadFromJSON<span class="type">&lt;T&gt;</span><span class="params">(factory: <span class="type">JSONFactory</span>&lt;<span class="type">T</span>&gt;)</span></span>: T &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">loadFromJSON(Person)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>JSON을 역직렬화하여 객체를 생성할 수 있는 인터페이스 선언</li>
+<li>Person 클래스의 동반 객체가 JSONFactory의 fromJSON을 Person을 리턴하는 함수로 구현</li>
+<li>JSON으로부터 각 원소를 만들어내는 추상 팩토리가 있다면 Person 객체를 그 팩토리에 넘겨 객체 생성</li>
+</ol>
+<h3 id="동반-객체-확장"><a href="#동반-객체-확장" class="headerlink" title="동반 객체 확장"></a>동반 객체 확장</h3><p>동반 객체도 객체이므로 확장이 가능하며 사용법은 <code>클래스.Companion(혹은 이름).확장함수</code>형식이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> firstName: String, <span class="keyword">val</span> lastName: String) &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.Companion.fromJSON(json: String) : Person &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="keyword">val</span> p = Person.fromJSON(json)</span><br></pre></td></tr></table></figure>
+<p>그리고 중요한 것은 동반 객체에 확장함수를 선언할 땐 빈 동반 객체라도 꼭 있어야 한다는 점이다.</p>
+<h3 id="객체-식-무명-내부-클래스를-다른-방식으로-작성"><a href="#객체-식-무명-내부-클래스를-다른-방식으로-작성" class="headerlink" title="객체 식: 무명 내부 클래스를 다른 방식으로 작성"></a>객체 식: 무명 내부 클래스를 다른 방식으로 작성</h3><p>object 키워드를 싱글턴과 같은 객체를 정의하고 그 객체에 이름을 붙일 때만 사용하지 않는다. <code>무명 객체를 정의</code>할 때도 object 키워드를 쓰는데 이땐 <code>싱글턴 객체가 아닌 매번 호출 시 새로운 객체가 생성</code>이 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 바로 선언</span></span><br><span class="line">window.addMouseListener(</span><br><span class="line">  <span class="keyword">object</span>: MouseAdapter() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseClicked</span><span class="params">(e: <span class="type">MouseEvent</span>)</span></span> &#123; ... &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseEntered</span><span class="params">(e: <span class="type">MouseEvent</span>)</span></span> &#123; ... &#125;</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 객체 이름 사용</span></span><br><span class="line"><span class="keyword">val</span> listener = <span class="keyword">object</span> : MouseAdapter() &#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseClicked</span><span class="params">(e: <span class="type">MouseEvent</span>)</span></span> &#123; ... &#125;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseEntered</span><span class="params">(e: <span class="type">MouseEvent</span>)</span></span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>출처 : <a href="http://book.interpark.com/product/BookDisplay.do?_method=detail&sc.prdNo=270227254&gclid=CjwKCAjwvOHzBRBoEiwA48i6Aggp3L98kGG8FHSR4tUN_HhRDdGXWo6cw21536Fyc9wxxMGynqv3oxoCnXkQAvD_BwE" rel="external nofollow noopener noreferrer" target="_blank">Kotlin in Acation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/data-class/" rel="tag">data class</a>, <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>, <a class="has-link-grey -link" href="/tags/object-class/" rel="tag">object class</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/04/08/algorithm-representation-of-a-set-union-find/">
+                <span class="level-item">Algorithm :: 집합의 표현 (union-find)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/04/10/thrid-class-object-interface/';
+        this.page.identifier = '2020/04/10/thrid-class-object-interface/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#Data-클래스">
+        <span class="has-mr-6">1</span>
+        <span>Data 클래스</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#데이터-클래스와-불변성-copy-메소드">
+        <span class="has-mr-6">1.1</span>
+        <span>데이터 클래스와 불변성: copy() 메소드</span>
+        </a></li><li>
+        <a class="is-flex" href="#클래스-위임-by-키워드">
+        <span class="has-mr-6">1.2</span>
+        <span>클래스 위임: by 키워드</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#object-키워드-클래스-선언과-인스턴스-생성">
+        <span class="has-mr-6">2</span>
+        <span>object 키워드: 클래스 선언과 인스턴스 생성</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#싱글턴">
+        <span class="has-mr-6">2.1</span>
+        <span>싱글턴</span>
+        </a></li><li>
+        <a class="is-flex" href="#동반-객체-팩토리-메소드와-정적-멤버가-들어갈-장소">
+        <span class="has-mr-6">2.2</span>
+        <span>동반 객체: 팩토리 메소드와 정적 멤버가 들어갈 장소</span>
+        </a></li><li>
+        <a class="is-flex" href="#동반-객체를-일반-객체처럼-사용">
+        <span class="has-mr-6">2.3</span>
+        <span>동반 객체를 일반 객체처럼 사용</span>
+        </a></li><li>
+        <a class="is-flex" href="#동반-객체에서-인터페이스-구현">
+        <span class="has-mr-6">2.4</span>
+        <span>동반 객체에서 인터페이스 구현</span>
+        </a></li><li>
+        <a class="is-flex" href="#동반-객체-확장">
+        <span class="has-mr-6">2.5</span>
+        <span>동반 객체 확장</span>
+        </a></li><li>
+        <a class="is-flex" href="#객체-식-무명-내부-클래스를-다른-방식으로-작성">
+        <span class="has-mr-6">2.6</span>
+        <span>객체 식: 무명 내부 클래스를 다른 방식으로 작성</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/10/thrid-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 3">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-10T01:43:00.000Z">2020-04-10</time></div>
+                    <a href="/2020/04/10/thrid-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/baekjoon.png" alt="Algorithm :: 집합의 표현 (union-find)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T05:14:00.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/algorithm-representation-of-a-set-union-find/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: 집합의 표현 (union-find)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/06/algorithm-maximum-subarray/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/leetcode.png" alt="Algorithm :: Maximum Subarray">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-06T08:02:00.000Z">2020-04-06</time></div>
+                    <a href="/2020/04/06/algorithm-maximum-subarray/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Algorithm :: Maximum Subarray</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/03/second-class-object-interface/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="Kotlin :: 클래스, 객체, 인터페이스 2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T23:58:00.000Z">2020-04-03</time></div>
+                    <a href="/2020/04/03/second-class-object-interface/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Kotlin :: 클래스, 객체, 인터페이스 2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/useful-regex-sample/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Regex :: 유용한 정규표현식 샘플 with Java">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T12:08:00.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/useful-regex-sample/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Regex :: 유용한 정규표현식 샘플 with Java</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 13.33px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/data-class/" style="font-size: 10px;">data class</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 13.33px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 10px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/object-class/" style="font-size: 10px;">object class</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/websocket/" style="font-size: 13.33px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Kotlin :: 클래스, 객체, 인터페이스 3" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

@@ -8,6 +8,22 @@
     </url>
 
     <url>
+        <loc>https://kmdigit.github.io/2020/03/06/IntelliJ-SpringBoot-Project-Multiple-Run/</loc>
+        <lastmod>2020-04-14T01:35:48.445Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kmdigit.github.io/2020/04/14/install-lombok-intellij-2020-1-version/</loc>
+        <lastmod>2020-04-14T01:35:14.116Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kmdigit.github.io/2020/04/10/thrid-class-object-interface/</loc>
         <lastmod>2020-04-10T01:53:55.424Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -74,14 +90,6 @@
     <url>
         <loc>https://kmdigit.github.io/2020/03/19/assign-user-on-websocket-springboot/</loc>
         <lastmod>2020-04-08T09:14:18.797Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://kmdigit.github.io/2020/03/06/IntelliJ-SpringBoot-Project-Multiple-Run/</loc>
-        <lastmod>2020-04-08T09:14:14.581Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

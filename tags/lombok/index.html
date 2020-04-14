@@ -7,14 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="canonical" href="https://kmdigit.github.io/tags/sealed/">
-<title>태그: sealed - Fun Programm Life</title>
+<link rel="canonical" href="https://kmdigit.github.io/tags/lombok/">
+<title>태그: lombok - Fun Programm Life</title>
 
 
     <meta name="description" content="funfun programmer life">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fun Programm Life">
-<meta property="og:url" content="https://kmdigit.github.io/tags/sealed/index.html">
+<meta property="og:url" content="https://kmdigit.github.io/tags/lombok/index.html">
 <meta property="og:site_name" content="Fun Programm Life">
 <meta property="og:description" content="funfun programmer life">
 <meta property="og:locale" content="ko_KR">
@@ -138,7 +138,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="/tags">태그</a></li>
-            <li class="is-active"><a href="#" aria-current="page">sealed</a></li>
+            <li class="is-active"><a href="#" aria-current="page">lombok</a></li>
         </ul>
         </nav>
     </div>
@@ -148,28 +148,18 @@
 <div class="card">
 	<!--
     
-    <div class="card-image">
-        <a href="/2020/03/30/first-class-object-interface/" class="image is-7by1">
-            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="[Kotlin] 클래스, 객체, 인터페이스 1">
-        </a>
-    </div>
-    
 	-->
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-30T11:59:00.000Z">2020-03-30</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/kotlin/">kotlin</a>
-                </div>
+                <time class="level-item has-text-grey" datetime="2020-04-14T01:28:00.000Z">2020-04-14</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    11분 읽기 (대략 1583 단어)
+                    몇 초 읽기 (대략 105 단어)
                 </span>
                 
                 
@@ -178,23 +168,20 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/03/30/first-class-object-interface/">[Kotlin] 클래스, 객체, 인터페이스 1</a>
+                <a class="has-link-black-ter" href="/2020/04/14/install-lombok-intellij-2020-1-version/">install-lombok-intellij-2020.1-version</a>
             
         </h1>
         <div class="content">
-            <h2 id="코틀린-인터페이스"><a href="#코틀린-인터페이스" class="headerlink" title="코틀린 인터페이스"></a>코틀린 인터페이스</h2><p>코틀린 인터페이스는 자바8과 비슷하게 추상 메소드 뿐만 아니라 구현이 있는 메소드도 정의할 수 있다. 다만 인터페이스에는 아무런 상태(필드)도 들어갈 수 없다.</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Clickable</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">click</span><span class="params">()</span></span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">showOff</span><span class="params">()</span></span> = println(<span class="string">"I'm clickable"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> : <span class="type">Clickable &#123;</span></span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">click</span><span class="params">()</span></span> = println(<span class="string">"I' was clicked"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>콜론(:)</code>을 붙여 클래스 확장과 인터페이스를 구현 모두를 처리한다.</li>
-<li><code>override</code>변경자는 @Override 애노테이션과 동일하게 오버라이드 표시를 하지만 오버라이드 시 <code>반드시 사용</code>해야 한다.</li>
-<li>showOff와 같이 <code>디폴트 함수</code>를 제공한다.
-        </li></ul></div>
+            <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>이번에 2020.1 버전으로 업데이트가 되면서 기존 롬복을 사용할 수 없게되어 프로젝트에 줄줄이 에러가 발생하게 됐다.</p>
+<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><ol>
+<li>롬복 0.30 업데이트 파일 다운로드(<a href="https://github.com/mplushnikov/lombok-intellij-plugin/files/4446418/lombok-plugin-0.30-EAP.zip" rel="external nofollow noopener noreferrer" target="_blank">링크</a>)
+        </li></ol></div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/30/first-class-object-interface/#more">자세히 보기</a>
+                <a class="button is-size-7 is-light" href="/2020/04/14/install-lombok-intellij-2020-1-version/#more">자세히 보기</a>
                 </div>
             </div>
         </div>

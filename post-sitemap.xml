@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://kmdigit.github.io/2020/05/07/Flask-Quick-Guide/</loc>
+        <lastmod>2020-05-07T01:44:52.993Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kmdigit.github.io/2020/04/14/install-lombok-intellij-2020-1-version/</loc>
         <lastmod>2020-05-01T13:32:44.480Z</lastmod>
         <changefreq>weekly</changefreq>

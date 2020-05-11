@@ -8,6 +8,22 @@
     </url>
 
     <url>
+        <loc>https://kmdigit.github.io/2020/04/06/algorithm-maximum-subarray/</loc>
+        <lastmod>2020-05-11T02:13:52.670Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kmdigit.github.io/2020/05/11/Homebrew-cask-search-not-working/</loc>
+        <lastmod>2020-05-11T02:13:51.103Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kmdigit.github.io/2020/05/08/python-install-pip-offline/</loc>
         <lastmod>2020-05-08T00:06:49.388Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -194,14 +210,6 @@
     <url>
         <loc>https://kmdigit.github.io/2020/04/08/algorithm-representation-of-a-set-union-find/</loc>
         <lastmod>2020-04-08T09:07:16.567Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://kmdigit.github.io/2020/04/06/algorithm-maximum-subarray/</loc>
-        <lastmod>2020-04-08T05:13:19.684Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

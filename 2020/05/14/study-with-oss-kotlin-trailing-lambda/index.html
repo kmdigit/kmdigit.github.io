@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+
+<meta name="generator" content="Hexo 4.2.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://kmdigit.github.io/2020/05/14/study-with-oss-kotlin-trailing-lambda/">
+<title>OSS로 공부 :: Kotlin - Trailing lambda - Fun Programm Life</title>
+
+
+    <meta name="description" content="Kotlin-Telegram-Bot코틀린용 텔레그램 봇 라이브러리. Start수가 아주 높진 않아도 굉장히 잘 만들어진 라이브러리이다. 최근까지 지속적으로 업데이트를 하고 있으며 사용법도 굉장히 간단하고 쉬워서 애용한다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSS로 공부 :: Kotlin - Trailing lambda">
+<meta property="og:url" content="https://kmdigit.github.io/2020/05/14/study-with-oss-kotlin-trailing-lambda/index.html">
+<meta property="og:site_name" content="Fun Programm Life">
+<meta property="og:description" content="Kotlin-Telegram-Bot코틀린용 텔레그램 봇 라이브러리. Start수가 아주 높진 않아도 굉장히 잘 만들어진 라이브러리이다. 최근까지 지속적으로 업데이트를 하고 있으며 사용법도 굉장히 간단하고 쉬워서 애용한다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+<meta property="article:published_time" content="2020-05-14T06:09:00.000Z">
+<meta property="article:modified_time" content="2020-05-14T06:14:57.196Z">
+<meta property="article:author" content="funlee">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="trailing lambda">
+<meta property="article:tag" content="oss">
+<meta property="article:tag" content="telegram">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kmdigit.github.io/images/thumbnails/kotlin.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161501240-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161501240-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss2.xml" title="Fun Programm Life" type="application/rss+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="OSS로 공부 :: Kotlin - Trailing lambda" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/kmdigit/kmdigit.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="검색" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10-tablet is-10-desktop is-10-widescreen has-order-2 column-main">
+<div class="card">
+	<!--
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="OSS로 공부 :: Kotlin - Trailing lambda">
+        </span>
+    </div>
+    
+	-->
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-14T06:09:00.000Z">2020-05-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Study-with-OSS/">Study with OSS</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7분 읽기 (대략 1024 단어)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                OSS로 공부 :: Kotlin - Trailing lambda
+            
+        </h1>
+        <div class="content">
+            <h2 id="Kotlin-Telegram-Bot"><a href="#Kotlin-Telegram-Bot" class="headerlink" title="Kotlin-Telegram-Bot"></a>Kotlin-Telegram-Bot</h2><p><a href="https://github.com/kotlin-telegram-bot/kotlin-telegram-bot" rel="external nofollow noopener noreferrer" target="_blank">코틀린용 텔레그램 봇 라이브러리.</a></p>
+<p>Start수가 아주 높진 않아도 굉장히 잘 만들어진 라이브러리이다. 최근까지 지속적으로 업데이트를 하고 있으며 사용법도 굉장히 간단하고 쉬워서 애용한다.</p>
+<a id="more"></a>
+
+<h2 id="사용법"><a href="#사용법" class="headerlink" title="사용법"></a>사용법</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> bot = bot &#123;</span><br><span class="line">        token = <span class="string">"YOUR_API_KEY"</span></span><br><span class="line">    &#125;</span><br><span class="line">    bot.startPolling()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>발급받은 텔레그램 봇 API KEY를 작성하고 Bot 객체를 만들고 시작만 하면 된다.</p>
+<h2 id="여기서-궁금한-점"><a href="#여기서-궁금한-점" class="headerlink" title="여기서 궁금한 점"></a>여기서 궁금한 점</h2><p>사용법을 보면 굉장히 간단해 보이는데 여기서 궁금한 점이 생겼다.</p>
+<p>bot 객체를 만들 때 사용하는 <code>bot { ... }</code>은 함수인가? 아니면 람다인가? 궁금하니 빨리 코드를 까보자.</p>
+<h2 id="코드는-이렇게"><a href="#코드는-이렇게" class="headerlink" title="코드는 이렇게"></a>코드는 이렇게</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bot</span><span class="params">(body: <span class="type">Bot</span>.<span class="type">Builder</span>.() -&gt; <span class="type">Unit</span>)</span></span>: Bot = Bot.Builder().build(body)</span><br></pre></td></tr></table></figure>
+
+<p>아. 코드를 보니 함수였다.</p>
+<p>신기하게 생긴 함수이긴 하지만 생긴 건 분명 함수이다. 그럼 함수의 요소대로 이 함수를 분해해보자.</p>
+<ul>
+<li>이 함수의 이름은 <code>bot</code>이다.</li>
+<li>이 함수의 매개 변수의 이름은 <code>body</code>이며 타입은 <code>Bot.Builder.() -&gt; Unit</code>이다.</li>
+<li>이 함수의 반환 타입은 <code>Bot</code>이다.</li>
+<li>즉 <code>Bot.Builder.() → Unit</code> 타입의 <code>람다</code>를 인수로 받고 반환은 <code>Bot 타입</code>인 <code>bot이라는 이름</code>의 함수이다.</li>
+</ul>
+<p>이 함수의 매개 변수 타입은 람다이다. 어떤 람다를 받는지는 모르겠으나 어쨌든 람다이다. 그리고 코틀린에서 람다는 <code>-&gt;, { }</code>로 구분 질 수 있다.</p>
+<ul>
+<li><code>-&gt;</code>의 전 후로 인자와 본문으로 나뉜다.</li>
+<li><code>{ }</code>는 람다식을 의미한다.</li>
+</ul>
+<p>여기까지 정리를 해보니 사용법에서 나온 코드가 어느정도 해석이 되는 것 같다.</p>
+<h2 id="다시-한-번-더"><a href="#다시-한-번-더" class="headerlink" title="다시 한 번 더"></a>다시 한 번 더</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> bot = bot &#123;</span><br><span class="line">        token = <span class="string">"YOUR_API_KEY"</span></span><br><span class="line">    &#125;</span><br><span class="line">    bot.startPolling()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>val bot</code>의 타입은 <code>bot 함수</code>에 의해 <code>Bot</code>타입이다.</li>
+<li><code>bot 함수</code>의 매개 변수 타입은 람다식이므로 메인에서는<code>{ token = &quot;...&quot; }</code>이라는 람다식으로 <code>bot 함수</code>에 인수로 넘기고 있다.</li>
+</ul>
+<p>여기까지는 이제 이해가 된다. 그럼에도 아직 이상한 모양이 보인다. 찾았는가.</p>
+<p>바로 <code>bot 함수</code>의 호출 형태이다.</p>
+<p>함수 호출은 모두 알다시피 <code>괄호 ()</code>로 끝나야 한다. 하지만 우리가 해석하여 함수라고 정의한 <code>bot 함수</code>는 평범한 함수 호출과는 다르게 <code>괄호 ()</code>가 없고 바로 람다식이 왔다.</p>
+<p>여기서 우리는 코틀린의 문법을 하나 배울 수 있다. 바로 <code>Trailing Lambda</code>이다.</p>
+<h2 id="Trailing-Lambda"><a href="#Trailing-Lambda" class="headerlink" title="Trailing Lambda"></a>Trailing Lambda</h2><p>직역하면 <code>후미진 람다?</code>로 코틀린에서는 이렇게 <a href="https://kotlinlang.org/docs/reference/lambdas.html#passing-a-lambda-to-the-last-parameter" rel="external nofollow noopener noreferrer" target="_blank">정의</a>한다.</p>
+<blockquote>
+<p>In Kotlin, there is a convention: if the last parameter of a function is a function, then a lambda expression passed as the corresponding argument can be placed outside the parentheses</p>
+</blockquote>
+<p>즉, 함수의 마지막 매개 변수가 함수라면 해당 인수로 전달 되는 람다식을 괄호 밖에 넣을 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> product = items.fold(<span class="number">1</span>) &#123; acc, e -&gt; acc * e &#125;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 한 가지 더 규칙이 있는데 이 규칙에 의해 사용법에서 보는 것과 같이 사용할 수 있다.</p>
+<blockquote>
+<p>If the lambda is the only argument to that call, the parentheses can be omitted entirely</p>
+</blockquote>
+<p>만약 람다가 함수의 유일한 인수라면 괄호를 완전히 생략할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run &#123; println(<span class="string">"..."</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>그러므로 사용법에서 나온 것처럼 bot 함수를 호출할 때 <code>bot { token = ... }</code>으로 사용이 가능했던 것이다.</p>
+<h2 id="다음-번에는"><a href="#다음-번에는" class="headerlink" title="다음 번에는"></a>다음 번에는</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bot</span><span class="params">(body: <span class="type">Bot</span>.<span class="type">Builder</span>.() -&gt; <span class="type">Unit</span>)</span></span>: Bot = Bot.Builder().build(body)</span><br></pre></td></tr></table></figure>
+
+<p>bot 함수의 매개 변수 타입은 람다식인데 이 람다식의 인수는 어떻게 읽는 걸까?</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> bot = bot &#123;</span><br><span class="line">        token = <span class="string">"YOUR_API_KEY"</span></span><br><span class="line">    &#125;</span><br><span class="line">    bot.startPolling()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 메인에서 람다식을 사용 할 때 token이라는 이름 혹은 변수는 어디서 나온 걸까?</p>
+<p>이 두 가지 물음의 답은 단 하나이다.</p>
+<p>그것은 바로…</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/kotlin/" rel="tag">kotlin</a>, <a class="has-link-grey -link" href="/tags/oss/" rel="tag">oss</a>, <a class="has-link-grey -link" href="/tags/telegram/" rel="tag">telegram</a>, <a class="has-link-grey -link" href="/tags/trailing-lambda/" rel="tag">trailing lambda</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/12/install-vscode-on-mac/">
+                <span class="level-item">Mac Homebrew를 이용한 VSCode 설치</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://kmdigit.github.io/2020/05/14/study-with-oss-kotlin-trailing-lambda/';
+        this.page.identifier = '2020/05/14/study-with-oss-kotlin-trailing-lambda/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'kmdigit' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    카탈로그
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#Kotlin-Telegram-Bot">
+        <span class="has-mr-6">1</span>
+        <span>Kotlin-Telegram-Bot</span>
+        </a></li><li>
+        <a class="is-flex" href="#사용법">
+        <span class="has-mr-6">2</span>
+        <span>사용법</span>
+        </a></li><li>
+        <a class="is-flex" href="#여기서-궁금한-점">
+        <span class="has-mr-6">3</span>
+        <span>여기서 궁금한 점</span>
+        </a></li><li>
+        <a class="is-flex" href="#코드는-이렇게">
+        <span class="has-mr-6">4</span>
+        <span>코드는 이렇게</span>
+        </a></li><li>
+        <a class="is-flex" href="#다시-한-번-더">
+        <span class="has-mr-6">5</span>
+        <span>다시 한 번 더</span>
+        </a></li><li>
+        <a class="is-flex" href="#Trailing-Lambda">
+        <span class="has-mr-6">6</span>
+        <span>Trailing Lambda</span>
+        </a></li><li>
+        <a class="is-flex" href="#다음-번에는">
+        <span class="has-mr-6">7</span>
+        <span>다음 번에는</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            최근 글
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/14/study-with-oss-kotlin-trailing-lambda/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="OSS로 공부 :: Kotlin - Trailing lambda">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-14T06:09:00.000Z">2020-05-14</time></div>
+                    <a href="/2020/05/14/study-with-oss-kotlin-trailing-lambda/" class="title has-link-black-ter is-size-6 has-text-weight-normal">OSS로 공부 :: Kotlin - Trailing lambda</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Study-with-OSS/">Study with OSS</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/12/install-vscode-on-mac/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/mac.png" alt="Mac Homebrew를 이용한 VSCode 설치">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-12T00:11:00.000Z">2020-05-12</time></div>
+                    <a href="/2020/05/12/install-vscode-on-mac/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Mac Homebrew를 이용한 VSCode 설치</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/11/Homebrew-cask-search-not-working/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/mac.png" alt="Homebrew cask search not working">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-11T02:03:00.000Z">2020-05-11</time></div>
+                    <a href="/2020/05/11/Homebrew-cask-search-not-working/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Homebrew cask search not working</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/08/python-install-pip-offline/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/python.png" alt="파이썬 :: PIP 오프라인 설치">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-08T00:02:00.000Z">2020-05-08</time></div>
+                    <a href="/2020/05/08/python-install-pip-offline/" class="title has-link-black-ter is-size-6 has-text-weight-normal">파이썬 :: PIP 오프라인 설치</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/python/">python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/07/Flask-Quick-Guide/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnails/python.png" alt="파이썬 :: 플라스크 간단 가이드 (Flask Quick Guide)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-07T01:42:00.000Z">2020-05-07</time></div>
+                    <a href="/2020/05/07/Flask-Quick-Guide/" class="title has-link-black-ter is-size-6 has-text-weight-normal">파이썬 :: 플라스크 간단 가이드 (Flask Quick Guide)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/python/">python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            태그 클라우드
+        </h3>
+        <a href="/tags/algorithm/" style="font-size: 12.5px;">algorithm</a> <a href="/tags/anonymous-class/" style="font-size: 10px;">anonymous class</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/brew/" style="font-size: 10px;">brew</a> <a href="/tags/cask/" style="font-size: 10px;">cask</a> <a href="/tags/contribution/" style="font-size: 10px;">contribution</a> <a href="/tags/controller/" style="font-size: 10px;">controller</a> <a href="/tags/data-class/" style="font-size: 10px;">data class</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/docker-rm/" style="font-size: 10px;">docker rm</a> <a href="/tags/flask/" style="font-size: 10px;">flask</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-%EA%B3%84%EC%A0%95/" style="font-size: 10px;">git 계정</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/influxdb/" style="font-size: 12.5px;">influxdb</a> <a href="/tags/influxdb-java/" style="font-size: 10px;">influxdb-java</a> <a href="/tags/intellij/" style="font-size: 12.5px;">intellij</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kadane-s-algorithm/" style="font-size: 10px;">kadane's algorithm</a> <a href="/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/tags/lambda/" style="font-size: 10px;">lambda</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/lombok/" style="font-size: 10px;">lombok</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/maximun-subarray/" style="font-size: 10px;">maximun subarray</a> <a href="/tags/multi-project/" style="font-size: 10px;">multi project</a> <a href="/tags/object-class/" style="font-size: 10px;">object class</a> <a href="/tags/offline/" style="font-size: 10px;">offline</a> <a href="/tags/oss/" style="font-size: 10px;">oss</a> <a href="/tags/pip/" style="font-size: 12.5px;">pip</a> <a href="/tags/principal/" style="font-size: 10px;">principal</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/sealed/" style="font-size: 10px;">sealed</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/sendtouser/" style="font-size: 10px;">sendtouser</a> <a href="/tags/spring/" style="font-size: 17.5px;">spring</a> <a href="/tags/spring-data-influxdb/" style="font-size: 10px;">spring-data-influxdb</a> <a href="/tags/telegram/" style="font-size: 10px;">telegram</a> <a href="/tags/trailing-lambda/" style="font-size: 10px;">trailing lambda</a> <a href="/tags/union-find/" style="font-size: 10px;">union find</a> <a href="/tags/venv/" style="font-size: 10px;">venv</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/websocket/" style="font-size: 12.5px;">websocket</a> <a href="/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/" style="font-size: 10px;">코틀린</a>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="OSS로 공부 :: Kotlin - Trailing lambda" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 funlee&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ko");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://kmdigit.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" rel="external nofollow noopener noreferrer" target="_blank">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Zurück nach oben" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '포스트',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리',
+                TAGS: '태그',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

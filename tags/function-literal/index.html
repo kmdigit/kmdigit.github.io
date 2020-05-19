@@ -7,14 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="canonical" href="https://kmdigit.github.io/tags/pip/">
-<title>태그: pip - Fun Programm Life</title>
+<link rel="canonical" href="https://kmdigit.github.io/tags/function-literal/">
+<title>태그: function literal - Fun Programm Life</title>
 
 
     <meta name="description" content="funfun programmer life">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fun Programm Life">
-<meta property="og:url" content="https://kmdigit.github.io/tags/pip/index.html">
+<meta property="og:url" content="https://kmdigit.github.io/tags/function-literal/index.html">
 <meta property="og:site_name" content="Fun Programm Life">
 <meta property="og:description" content="funfun programmer life">
 <meta property="og:locale" content="ko_KR">
@@ -138,7 +138,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="/tags">태그</a></li>
-            <li class="is-active"><a href="#" aria-current="page">pip</a></li>
+            <li class="is-active"><a href="#" aria-current="page">function literal</a></li>
         </ul>
         </nav>
     </div>
@@ -149,8 +149,8 @@
 	<!--
     
     <div class="card-image">
-        <a href="/2020/05/08/python-install-pip-offline/" class="image is-7by1">
-            <img class="thumbnail" src="/images/thumbnails/python.png" alt="파이썬 :: PIP 오프라인 설치">
+        <a href="/2020/05/19/study-with-oss-kotlin-function-literals-with-receiver/" class="image is-7by1">
+            <img class="thumbnail" src="/images/thumbnails/kotlin.png" alt="OSS로 공부 :: Kotlin - Function literals with receiver">
         </a>
     </div>
     
@@ -159,17 +159,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-05-08T00:02:00.000Z">2020-05-08</time>
+                <time class="level-item has-text-grey" datetime="2020-05-19T11:59:00.000Z">2020-05-19</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/python/">python</a>
+                <a class="has-link-grey -link" href="/categories/Study-with-OSS/">Study with OSS</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2분 읽기 (대략 329 단어)
+                    12분 읽기 (대략 1873 단어)
                 </span>
                 
                 
@@ -178,83 +178,19 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/05/08/python-install-pip-offline/">파이썬 :: PIP 오프라인 설치</a>
+                <a class="has-link-black-ter" href="/2020/05/19/study-with-oss-kotlin-function-literals-with-receiver/">OSS로 공부 :: Kotlin - Function literals with receiver</a>
             
         </h1>
         <div class="content">
-            <h1 id="whl-파일-다운로드"><a href="#whl-파일-다운로드" class="headerlink" title="whl 파일 다운로드"></a>whl 파일 다운로드</h1><p>pip 접속이 가능한 온라인 환경이라면 pip의 <code>download</code>명령어로 필요한 파일을 다운로드 한다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; pip download -d . flask</span><br></pre></td></tr></table></figure>
-
-<p><code>-d</code>옵션으로 다운로드 받을 폴더를 지정할 수 있으니 필요한 곳을 지정하고 원하는 패키지를 입력하면 의존성 있는 모든 패키지가 다운 받아 진다.</p>
+            <h2 id="똑같은-코드는-이제-그만"><a href="#똑같은-코드는-이제-그만" class="headerlink" title="똑같은 코드는 이제 그만"></a>똑같은 코드는 이제 그만</h2><p><a href="https://kmdigit.github.io/2020/05/14/study-with-oss-kotlin-trailing-lambda/">전편</a>에 이어 이번에도 똑같은 코드를 다시 한 번 볼 것이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bot</span><span class="params">(body: <span class="type">Bot</span>.<span class="type">Builder</span>.() -&gt; <span class="type">Unit</span>)</span></span>: Bot = Bot.Builder().build(body)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> bot = bot &#123;</span><br><span class="line">        token = <span class="string">"YOUR_API_KEY"</span></span><br><span class="line">    &#125;</span><br><span class="line">    bot.startPolling()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/05/08/python-install-pip-offline/#more">자세히 보기</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    
-<div class="card">
-	<!--
-    
-    <div class="card-image">
-        <a href="/2020/05/01/python-pip/" class="image is-7by1">
-            <img class="thumbnail" src="/images/thumbnails/python.png" alt="파이썬 :: PIP 명령어">
-        </a>
-    </div>
-    
-	-->
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-05-01T12:31:00.000Z">2020-05-01</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/python/">python</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2분 읽기 (대략 357 단어)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/05/01/python-pip/">파이썬 :: PIP 명령어</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="PIP-란"><a href="#PIP-란" class="headerlink" title="PIP 란"></a>PIP 란</h2><p><code>pip</code>는 파이썬으로 작성된 패키지 소프트웨어를 설치 및 관리하는 패키지 관리 시스템이다. <code>PyPI</code>에서 많은 파이썬 패키지를 볼 수 있는데 여기에 저장 된 다양한 패키지들을 쉽게 관리할 수 있게 지원한다.</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/05/01/python-pip/#more">자세히 보기</a>
+                <a class="button is-size-7 is-light" href="/2020/05/19/study-with-oss-kotlin-function-literals-with-receiver/#more">자세히 보기</a>
                 </div>
             </div>
         </div>
